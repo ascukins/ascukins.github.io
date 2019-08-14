@@ -63,7 +63,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- {{ticks | json}}\nghjkghjk -->\n<!-- <ng-container *ngIf=\"ticks\"> -->\n\n\n<ng-container *ngIf=\"tickerStoreService.ticker$ | async as ticks\">\n\n  RNG: {{tickerStoreService.rngChoice}}, Speed: {{tickerStoreService.timeInterval.toPrecision(2)}}\n  <br>\n  <button (click)=\"onTogglePause()\"> {{tickerStoreService.paused ? 'Resume' : 'Pause'}} </button>\n  <button (click)=\"onRestart()\"> Restart </button>\n  <br>\n  <div class=\"zzz\">\n    <div class=\"zzz2\">\n      <svg [attr.width]=\"svgWidth\" [attr.height]=\"svgHeight\" (mousemove)=\"onMouseMove($event)\"\n        (mousedown)=\"onMouseDown($event)\" (mouseup)=\"onMouseUp($event)\">\n\n        <line *ngFor=\"let x of verticalLines\"\n          [attr.x1]=\"x\" [attr.y1]=\"0\" [attr.x2]=\"x\" [attr.y2]=\"svgHeight\" stroke=\"GAINSBORO\"\n          stroke-width=\"1\" stroke-dasharray=\"4\"/>\n\n        <ng-container *ngFor=\"let tick of ticks; index as i\">\n        <line *ngIf=\"i>0 && i<svgWidth\"\n          [attr.x1]=\"i\"\n          [attr.y1]=\"(ticks[i-1] - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          [attr.x2]=\"i\"\n          [attr.y2]=\"(tick - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          stroke=\"blue\" stroke-width=\"1\" />\n        </ng-container>\n\n        <line [attr.x1]=\"svgMouseX\" [attr.y1]=\"0\" [attr.x2]=\"svgMouseX\" [attr.y2]=\"svgHeight\" stroke=\"RED\"\n          stroke-width=\"1\" stroke-dasharray=\"1 4\"/>\n        <line [attr.x1]=\"0\" [attr.y1]=\"svgMouseY\" [attr.x2]=\"svgWidth\" [attr.y2]=\"svgMouseY\" stroke=\"RED\"\n          stroke-width=\"1\" stroke-dasharray=\"1 4\"/>\n\n\n      </svg>\n    </div>\n  </div>\n\n</ng-container>\n\n\n<router-outlet></router-outlet>\n"
+module.exports = "<!-- {{ticks | json}}\nghjkghjk -->\n<!-- <ng-container *ngIf=\"ticks\"> -->\n\n\n<ng-container *ngIf=\"tickerStoreService.ticker$ | async as ticks\">\n\n  RNG: {{tickerStoreService.rngChoice}}, Speed: {{tickerStoreService.timeInterval.toPrecision(2)}}, Open PnL: {{openPL.toPrecision(2)}}\n  <br>\n  <br>\n  <div class=\"zzz\">\n    <div class=\"zzz2\">\n\n      <div id=\"btn-bar\">\n        <button id=\"pause-btn\" (click)=\"onTogglePause()\"> {{tickerStoreService.paused ? 'Resume' : 'Pause'}} </button>\n        <button id=\"restart-btn\" (click)=\"onRestart()\"> Restart </button>\n        <button id=\"buy-btn\" (click)=\"onBuyClick()\"> {{openTrade ? 'Close' : 'Buy'}} </button>\n        <button id=\"sell-btn\" (click)=\"onSellClick()\"> {{openTrade ? 'Close' : 'Sell'}} </button>\n      </div>\n\n      <svg [attr.width]=\"svgWidth\" [attr.height]=\"svgHeight\" (mousemove)=\"onMouseMove($event)\"\n        (mousedown)=\"onMouseDown($event)\" (mouseup)=\"onMouseUp($event)\">\n\n        <line *ngFor=\"let x of verticalLines\"\n          [attr.x1]=\"x\" [attr.y1]=\"0\" [attr.x2]=\"x\" [attr.y2]=\"svgHeight\" stroke=\"GAINSBORO\"\n          stroke-width=\"1\" stroke-dasharray=\"4\"/>\n\n        <ng-container *ngFor=\"let tick of ticks; index as i\">\n        <line *ngIf=\"i>0 && i<svgWidth\"\n          [attr.x1]=\"i\"\n          [attr.y1]=\"(ticks[i-1] - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          [attr.x2]=\"i\"\n          [attr.y2]=\"(tick - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          stroke=\"blue\" stroke-width=\"1\" />\n        </ng-container>\n\n        <line [attr.x1]=\"svgMouseX\" [attr.y1]=\"0\" [attr.x2]=\"svgMouseX\" [attr.y2]=\"svgHeight\" stroke=\"RED\"\n          stroke-width=\"1\" stroke-dasharray=\"1 4\"/>\n        <line [attr.x1]=\"0\" [attr.y1]=\"svgMouseY\" [attr.x2]=\"svgWidth\" [attr.y2]=\"svgMouseY\" stroke=\"RED\"\n          stroke-width=\"1\" stroke-dasharray=\"1 4\"/>\n\n        <line *ngIf=\"openTrade===-1\"\n          [attr.x1]=\"0\"\n          [attr.y1]=\"(openPrice - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          [attr.x2]=\"svgWidth\"\n          [attr.y2]=\"(openPrice - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          stroke=\"ORANGERED\"\n          stroke-width=\"1\"\n          stroke-dasharray=\"6 3 2 3\"/>\n\n        <line *ngIf=\"openTrade===1\"\n          [attr.x1]=\"0\"\n          [attr.y1]=\"(openPrice - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          [attr.x2]=\"svgWidth\"\n          [attr.y2]=\"(openPrice - tickerStoreService.minTick)/(tickerStoreService.maxTick-tickerStoreService.minTick)*svgHeight\"\n          stroke=\"GREEN\"\n          stroke-width=\"1\"\n          stroke-dasharray=\"6 3 2 3\"/>\n\n\n      </svg>\n    </div>\n  </div>\n  <div id=\"tradeTable\">\n    <div *ngFor=\"let trade of trades\">\n      <span> {{trade.direction}} </span>\n      <span> {{trade.profit}} </span>\n    </div>\n  </div>\n  <div *ngIf=\"profitTotal\">\n    Total profit {{profitTotal}}\n  </div>\n\n</ng-container>\n\n\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -74,7 +74,7 @@ module.exports = "<!-- {{ticks | json}}\nghjkghjk -->\n<!-- <ng-container *ngIf=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "button {\n  padding: 20px;\n  width: 100px;\n  margin: 40px; }\n\nsvg {\n  border: 1px solid black;\n  margin: 1px; }\n\n.zzz {\n  border: 0px solid red; }\n\n.zzz2 {\n  border: 0px solid blue; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFVzZXJzXFxhc2N1a2luc1xccHJvamVjdHNcXHRpY2tlcjEvc3JjXFxhcHBcXGFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7RUFDYixZQUFZO0VBQ1osWUFBWSxFQUFBOztBQUdkO0VBQ0UsdUJBQXVCO0VBQ3ZCLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHFCQUFxQixFQUFBOztBQUl2QjtFQUNFLHNCQUFzQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYnV0dG9uIHtcclxuICBwYWRkaW5nOiAyMHB4O1xyXG4gIHdpZHRoOiAxMDBweDtcclxuICBtYXJnaW46IDQwcHg7XHJcbn1cclxuXHJcbnN2ZyB7XHJcbiAgYm9yZGVyOiAxcHggc29saWQgYmxhY2s7XHJcbiAgbWFyZ2luOiAxcHg7XHJcbn1cclxuXHJcbi56enoge1xyXG4gIGJvcmRlcjogMHB4IHNvbGlkIHJlZDtcclxuXHJcbn1cclxuXHJcbi56enoyIHtcclxuICBib3JkZXI6IDBweCBzb2xpZCBibHVlO1xyXG5cclxufVxyXG4iXX0= */"
+module.exports = "button {\n  padding: 5px;\n  width: 70px;\n  margin: 10px; }\n\n#buy-btn {\n  color: blue; }\n\n#sell-btn {\n  color: red; }\n\nsvg {\n  border: 1px solid black;\n  margin: 1px; }\n\n.zzz {\n  border: 0px solid red; }\n\n.zzz2 {\n  border: 0px solid blue; }\n\n#btn-bar {\n  position: absolute;\n  opacity: 0.5; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFVzZXJzXFxhc2N1a2luc1xccHJvamVjdHNcXHRpY2tlcjEvc3JjXFxhcHBcXGFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsWUFBWSxFQUFBOztBQUdkO0VBQ0UsV0FBVyxFQUFBOztBQUViO0VBQ0UsVUFBVSxFQUFBOztBQUtaO0VBQ0UsdUJBQXVCO0VBQ3ZCLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHFCQUFxQixFQUFBOztBQUl2QjtFQUNFLHNCQUFzQixFQUFBOztBQUl4QjtFQUNFLGtCQUFrQjtFQUNsQixZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJidXR0b24ge1xyXG4gIHBhZGRpbmc6IDVweDtcclxuICB3aWR0aDogNzBweDtcclxuICBtYXJnaW46IDEwcHg7XHJcbn1cclxuXHJcbiNidXktYnRuIHtcclxuICBjb2xvcjogYmx1ZTtcclxufVxyXG4jc2VsbC1idG4ge1xyXG4gIGNvbG9yOiByZWQ7XHJcbn1cclxuXHJcblxyXG5cclxuc3ZnIHtcclxuICBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcclxuICBtYXJnaW46IDFweDtcclxufVxyXG5cclxuLnp6eiB7XHJcbiAgYm9yZGVyOiAwcHggc29saWQgcmVkO1xyXG5cclxufVxyXG5cclxuLnp6ejIge1xyXG4gIGJvcmRlcjogMHB4IHNvbGlkIGJsdWU7XHJcblxyXG59XHJcblxyXG4jYnRuLWJhciB7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIG9wYWNpdHk6IDAuNTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -106,6 +106,12 @@ var AppComponent = /** @class */ (function () {
         this.offsetX = 0;
         this.draggingSvgHappened = false;
         this.verticalLines = Array(this.svgWidth / 100).fill(0).map(function (x, i) { return i * 100; });
+        this.openTrade = 0;
+        this.openPrice = 0;
+        this.lastTick = 0;
+        this.openPL = 0;
+        this.trades = [];
+        this.profitTotal = 0;
     }
     AppComponent.prototype.handleKeyboardEvent = function (event) {
         if (event.key === ' ') {
@@ -123,11 +129,30 @@ var AppComponent = /** @class */ (function () {
         else if (event.key === 'ArrowRight') {
             this.tickerStoreService.shiftVisibleWindow(-200);
         }
+        else if (event.key === 'B' || event.key === 'b') {
+            this.onBuyClick();
+        }
+        else if (event.key === 'S' || event.key === 's') {
+            this.onSellClick();
+        }
         else {
             // console.log(event.key);
         }
     };
     AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.tickerStoreService.ticker$.subscribe(function () {
+            _this.lastTick = _this.tickerStoreService.ticks[_this.tickerStoreService.ticks.length - 1];
+            if (_this.openTrade === -1) {
+                _this.openPL = _this.lastTick - _this.openPrice;
+            }
+            else if (_this.openTrade === 1) {
+                _this.openPL = -_this.lastTick + _this.openPrice;
+            }
+            else {
+                _this.openPL = 0;
+            }
+        });
     };
     AppComponent.prototype.onTogglePause = function () {
         this.tickerStoreService.togglePause();
@@ -160,6 +185,39 @@ var AppComponent = /** @class */ (function () {
             this.onTogglePause();
         }
         this.draggingSvgHappened = false;
+    };
+    AppComponent.prototype.buy = function () {
+        this.openTrade = 1;
+        this.openPrice = this.lastTick;
+    };
+    AppComponent.prototype.sell = function () {
+        this.openTrade = -1;
+        this.openPrice = this.lastTick;
+    };
+    AppComponent.prototype.close = function () {
+        this.trades.push({
+            direction: this.openTrade === 1 ? 'Buy' : 'Sell',
+            profit: Math.round((this.openPrice - this.lastTick) * this.openTrade)
+        });
+        this.profitTotal = this.trades.map(function (trade) { return trade.profit; }).reduce(function (sum, i) { return sum + i; });
+        this.openTrade = 0;
+        this.openPrice = 0;
+    };
+    AppComponent.prototype.onBuyClick = function () {
+        if (this.openTrade === 0) {
+            this.buy();
+        }
+        else {
+            this.close();
+        }
+    };
+    AppComponent.prototype.onSellClick = function () {
+        if (this.openTrade === 0) {
+            this.sell();
+        }
+        else {
+            this.close();
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('document:keydown', ['$event']),
@@ -256,7 +314,7 @@ var TickerStoreService = /** @class */ (function () {
         this.paused = false;
         this.maxTick = 10;
         this.minTick = -10;
-        this.timeInterval = 2.5;
+        this.timeInterval = 8.4;
         this.counter = 0;
         this.visibleShift = 0;
         this.visibleLength = 1200;
