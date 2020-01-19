@@ -79,7 +79,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<mat-toolbar>\n  <span> Import Order </span>\n</mat-toolbar>\n\n<mat-horizontal-stepper [@.disabled]=\"true\" [linear]=\"true\">\n  <mat-step [completed]=\"order\">\n    <ng-template matStepLabel>Find Order</ng-template>\n    <div class=\"step-content\">\n      <app-orders-table\n        [displayedOrderColumns]=\"displayedOrderColumns\"\n        [orders]=\"store.externalOrders\"\n        (rowClick)=\"onOrderRowClick($event)\"\n      >\n      </app-orders-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Prepare Products</ng-template>\n    <div class=\"step-content\">\n      <div *ngIf=\"order\" class=\"breadcrumb\">\n        <span class=\"link\" (click)=\"stepper.reset()\">My Orders</span> | Order\n        {{ order?.id }}\n      </div>\n      <app-order-items-table\n        *ngIf=\"order?.orderItems\"\n        [orderItems]=\"order.orderItems\"\n      ></app-order-items-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button matStepperNext>Next</button>\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Confirm Order</ng-template>\n    <div class=\"step-content\">\n      <div\n        style=\"overflow-y: auto; max-height: 420px;\"\n        *ngIf=\"order?.orderItems\"\n      >\n        <div style=\"min-height: 150px;\">\n          <h3>Items</h3>\n          <div *ngFor=\"let item of order.orderItems\" style=\"padding: 5px;\">\n            <mat-checkbox\n              style=\"margin-right: 5px;\"\n              disabled\n              [checked]=\"item.selected\"\n            >\n            </mat-checkbox>\n            {{ item.sku }},\n            {{ item.name }}\n            <ng-container *ngIf=\"item.option\">\n              ,\n              <mat-icon>{{ item.option.icon }}</mat-icon>\n              {{ item.option.text }}\n            </ng-container>\n          </div>\n        </div>\n\n        <div class=\"two-column\">\n          <div>\n            <h3>Shipping</h3>\n            {{ order.address.street }}<br />\n            {{ order.address.city }}<br />\n            {{ order.address.zip }}<br />\n            {{ order.address.state }}<br />\n            {{ order.address.country }}<br />\n          </div>\n          <div>\n            <h3>Production Subtotal</h3>\n            ...\n          </div>\n        </div>\n        <!-- <pre>{{ order | json }}</pre> -->\n      </div>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button [mat-dialog-close]=\"order\">\n        Confirm and Ship\n      </button>\n    </div>\n  </mat-step>\n</mat-horizontal-stepper>\n";
+    __webpack_exports__["default"] = "<mat-toolbar>\n  <span> Import Order </span>\n</mat-toolbar>\n\n<mat-horizontal-stepper [@.disabled]=\"true\" [linear]=\"true\">\n  <mat-step [completed]=\"order\">\n    <ng-template matStepLabel>Find Order</ng-template>\n    <div class=\"step-content\">\n      <app-orders-table\n        [displayedOrderColumns]=\"displayedOrderColumns\"\n        [orders]=\"store.externalOrders\"\n        (rowClick)=\"onOrderRowClick($event)\"\n      >\n      </app-orders-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Prepare Products</ng-template>\n    <div class=\"step-content\">\n      <div *ngIf=\"order\" class=\"breadcrumb\">\n        <span class=\"link\" (click)=\"stepper.reset()\">My Orders</span> | Order\n        {{ order?.id }}\n      </div>\n      <app-order-items-table\n        *ngIf=\"order?.orderItems\"\n        [orderItems]=\"order.orderItems\"\n      ></app-order-items-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button matStepperNext>Next</button>\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Confirm Order</ng-template>\n    <div class=\"step-content\">\n      <div\n        style=\"overflow-y: auto; max-height: 420px;\"\n        *ngIf=\"order?.orderItems\"\n      >\n        <div style=\"min-height: 150px;\">\n          <h3>Items</h3>\n          <div *ngFor=\"let item of order.orderItems\" style=\"padding: 5px;\">\n            <mat-checkbox\n              style=\"margin-right: 5px;\"\n              disabled\n              [checked]=\"item.selected\"\n            >\n            </mat-checkbox>\n            {{ item.sku }},\n            {{ item.name }}\n            <ng-container *ngIf=\"item.option\">\n              ,\n              <mat-icon>{{ item.option.icon }}</mat-icon>\n              {{ item.option.text }}\n            </ng-container>\n          </div>\n        </div>\n\n        <div class=\"two-column\">\n          <div>\n            <h3>Shipping</h3>\n            {{ order.customer }}<br />\n            {{ order.address.street }}<br />\n            {{ order.address.city }}<br />\n            {{ order.address.zip }}<br />\n            {{ order.address.state }}<br />\n            {{ order.address.country }}<br />\n          </div>\n          <div>\n            <h3>Production Subtotal</h3>\n            ...\n          </div>\n        </div>\n        <!-- <pre>{{ order | json }}</pre> -->\n      </div>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button [mat-dialog-close]=\"order\">\n        Confirm and Ship\n      </button>\n    </div>\n  </mat-step>\n</mat-horizontal-stepper>\n";
     /***/
   },
 
@@ -717,7 +717,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".container {\n  max-width: 900px;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVyc1xcc3JjL2FwcFxcYXBwLmNvbXBvbmVudC5zY3NzIiwiYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0VBQ0EsWUFBQTtBQ0NGIiwiZmlsZSI6ImFwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGFpbmVyIHtcclxuICBtYXgtd2lkdGg6IDkwMHB4O1xyXG4gIG1hcmdpbjogYXV0bztcclxufVxyXG4iLCIuY29udGFpbmVyIHtcbiAgbWF4LXdpZHRoOiA5MDBweDtcbiAgbWFyZ2luOiBhdXRvO1xufSJdfQ== */";
+    __webpack_exports__["default"] = ".container {\n  max-width: 900px;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFVzZXJzXFxhc2N1a2luc1xccHJvamVjdHNcXGltcG9ydC1vcmRlcnMvc3JjXFxhcHBcXGFwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQUE7RUFDQSxZQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGFpbmVyIHtcclxuICBtYXgtd2lkdGg6IDkwMHB4O1xyXG4gIG1hcmdpbjogYXV0bztcclxufVxyXG4iLCIuY29udGFpbmVyIHtcbiAgbWF4LXdpZHRoOiA5MDBweDtcbiAgbWFyZ2luOiBhdXRvO1xufSJdfQ== */";
     /***/
   },
 
@@ -960,7 +960,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".mat-stepper-horizontal {\n  margin-top: 20px;\n}\n.mat-stepper-horizontal .button-bar {\n  text-align: right;\n}\n.mat-stepper-horizontal .button-bar button {\n  margin-left: 16px;\n}\n.mat-stepper-horizontal .step-content {\n  padding-bottom: 16px;\n  min-height: 420px;\n}\n.breadcrumb {\n  padding-left: 24px;\n  font-weight: bold;\n}\n.two-column {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9jb21wb25lbnRzL2ltcG9ydC1vcmRlcnMtZGlhbG9nL0M6XFxVc2Vyc1xcYXNjdWtpbnNcXHByb2plY3RzXFxpbXBvcnQtb3JkZXJzXFxzcmMvYXBwXFxjb21wb25lbnRzXFxpbXBvcnQtb3JkZXJzLWRpYWxvZ1xcaW1wb3J0LW9yZGVycy1kaWFsb2cuY29tcG9uZW50LnNjc3MiLCJhcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9pbXBvcnQtb3JkZXJzLWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0FDQ0Y7QURDRTtFQUNFLGlCQUFBO0FDQ0o7QURBSTtFQUNFLGlCQUFBO0FDRU47QURFRTtFQUNFLG9CQUFBO0VBQ0EsaUJBQUE7QUNBSjtBRElBO0VBQ0Usa0JBQUE7RUFDQSxpQkFBQTtBQ0RGO0FESUE7RUFDRSxhQUFBO0VBQ0EsOEJBQUE7QUNERiIsImZpbGUiOiJhcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9pbXBvcnQtb3JkZXJzLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcclxuICBtYXJnaW4tdG9wOiAyMHB4O1xyXG5cclxuICAuYnV0dG9uLWJhciB7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIGJ1dHRvbiB7XHJcbiAgICAgIG1hcmdpbi1sZWZ0OiAxNnB4O1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLnN0ZXAtY29udGVudCB7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTZweDtcclxuICAgIG1pbi1oZWlnaHQ6IDQyMHB4O1xyXG4gIH1cclxufVxyXG5cclxuLmJyZWFkY3J1bWIge1xyXG4gIHBhZGRpbmctbGVmdDogMjRweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLnR3by1jb2x1bW4ge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xyXG59XHJcbiIsIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5idXR0b24tYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG4ubWF0LXN0ZXBwZXItaG9yaXpvbnRhbCAuYnV0dG9uLWJhciBidXR0b24ge1xuICBtYXJnaW4tbGVmdDogMTZweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5zdGVwLWNvbnRlbnQge1xuICBwYWRkaW5nLWJvdHRvbTogMTZweDtcbiAgbWluLWhlaWdodDogNDIwcHg7XG59XG5cbi5icmVhZGNydW1iIHtcbiAgcGFkZGluZy1sZWZ0OiAyNHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLnR3by1jb2x1bW4ge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnI7XG59Il19 */";
+    __webpack_exports__["default"] = ".mat-stepper-horizontal {\n  margin-top: 20px;\n}\n.mat-stepper-horizontal .button-bar {\n  text-align: right;\n}\n.mat-stepper-horizontal .button-bar button {\n  margin-left: 16px;\n}\n.mat-stepper-horizontal .step-content {\n  padding-bottom: 16px;\n  min-height: 420px;\n}\n.breadcrumb {\n  padding-left: 24px;\n  font-weight: bold;\n}\n.two-column {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVycy9zcmNcXGFwcFxcY29tcG9uZW50c1xcaW1wb3J0LW9yZGVycy1kaWFsb2dcXGltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2ltcG9ydC1vcmRlcnMtZGlhbG9nL2ltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQUE7QUNDRjtBRENFO0VBQ0UsaUJBQUE7QUNDSjtBREFJO0VBQ0UsaUJBQUE7QUNFTjtBREVFO0VBQ0Usb0JBQUE7RUFDQSxpQkFBQTtBQ0FKO0FESUE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0FDREY7QURJQTtFQUNFLGFBQUE7RUFDQSw4QkFBQTtBQ0RGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9pbXBvcnQtb3JkZXJzLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcclxuICBtYXJnaW4tdG9wOiAyMHB4O1xyXG5cclxuICAuYnV0dG9uLWJhciB7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIGJ1dHRvbiB7XHJcbiAgICAgIG1hcmdpbi1sZWZ0OiAxNnB4O1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLnN0ZXAtY29udGVudCB7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTZweDtcclxuICAgIG1pbi1oZWlnaHQ6IDQyMHB4O1xyXG4gIH1cclxufVxyXG5cclxuLmJyZWFkY3J1bWIge1xyXG4gIHBhZGRpbmctbGVmdDogMjRweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLnR3by1jb2x1bW4ge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xyXG59XHJcbiIsIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5idXR0b24tYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG4ubWF0LXN0ZXBwZXItaG9yaXpvbnRhbCAuYnV0dG9uLWJhciBidXR0b24ge1xuICBtYXJnaW4tbGVmdDogMTZweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5zdGVwLWNvbnRlbnQge1xuICBwYWRkaW5nLWJvdHRvbTogMTZweDtcbiAgbWluLWhlaWdodDogNDIwcHg7XG59XG5cbi5icmVhZGNydW1iIHtcbiAgcGFkZGluZy1sZWZ0OiAyNHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLnR3by1jb2x1bW4ge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnI7XG59Il19 */";
     /***/
   },
 
@@ -1088,7 +1088,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".mat-row:hover {\n  background-color: rgba(0, 0, 0, 0.04);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9jb21wb25lbnRzL29yZGVyLWl0ZW1zLXRhYmxlL0M6XFxVc2Vyc1xcYXNjdWtpbnNcXHByb2plY3RzXFxpbXBvcnQtb3JkZXJzXFxzcmMvYXBwXFxjb21wb25lbnRzXFxvcmRlci1pdGVtcy10YWJsZVxcb3JkZXItaXRlbXMtdGFibGUuY29tcG9uZW50LnNjc3MiLCJhcHAvY29tcG9uZW50cy9vcmRlci1pdGVtcy10YWJsZS9vcmRlci1pdGVtcy10YWJsZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHFDQUFBO0FDQ0YiLCJmaWxlIjoiYXBwL2NvbXBvbmVudHMvb3JkZXItaXRlbXMtdGFibGUvb3JkZXItaXRlbXMtdGFibGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LXJvdzpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjA0KTtcclxufVxyXG4iLCIubWF0LXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC4wNCk7XG59Il19 */";
+    __webpack_exports__["default"] = ".mat-row:hover {\n  background-color: rgba(0, 0, 0, 0.04);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9vcmRlci1pdGVtcy10YWJsZS9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVycy9zcmNcXGFwcFxcY29tcG9uZW50c1xcb3JkZXItaXRlbXMtdGFibGVcXG9yZGVyLWl0ZW1zLXRhYmxlLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL29yZGVyLWl0ZW1zLXRhYmxlL29yZGVyLWl0ZW1zLXRhYmxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UscUNBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvb3JkZXItaXRlbXMtdGFibGUvb3JkZXItaXRlbXMtdGFibGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LXJvdzpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjA0KTtcclxufVxyXG4iLCIubWF0LXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC4wNCk7XG59Il19 */";
     /***/
   },
 
@@ -1224,7 +1224,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".mat-row:hover {\n  background-color: rgba(0, 0, 0, 0.04);\n}\n\ntd,\nth {\n  padding: 0 10px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9jb21wb25lbnRzL29yZGVycy10YWJsZS9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVyc1xcc3JjL2FwcFxcY29tcG9uZW50c1xcb3JkZXJzLXRhYmxlXFxvcmRlcnMtdGFibGUuY29tcG9uZW50LnNjc3MiLCJhcHAvY29tcG9uZW50cy9vcmRlcnMtdGFibGUvb3JkZXJzLXRhYmxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UscUNBQUE7QUNDRjs7QURFQTs7RUFFRSwwQkFBQTtBQ0NGIiwiZmlsZSI6ImFwcC9jb21wb25lbnRzL29yZGVycy10YWJsZS9vcmRlcnMtdGFibGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LXJvdzpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjA0KTtcclxufVxyXG5cclxudGQsXHJcbnRoIHtcclxuICBwYWRkaW5nOiAwIDEwcHggIWltcG9ydGFudDtcclxufVxyXG4iLCIubWF0LXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC4wNCk7XG59XG5cbnRkLFxudGgge1xuICBwYWRkaW5nOiAwIDEwcHggIWltcG9ydGFudDtcbn0iXX0= */";
+    __webpack_exports__["default"] = ".mat-row:hover {\n  background-color: rgba(0, 0, 0, 0.04);\n}\n\ntd,\nth {\n  padding: 0 10px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9vcmRlcnMtdGFibGUvQzpcXFVzZXJzXFxhc2N1a2luc1xccHJvamVjdHNcXGltcG9ydC1vcmRlcnMvc3JjXFxhcHBcXGNvbXBvbmVudHNcXG9yZGVycy10YWJsZVxcb3JkZXJzLXRhYmxlLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL29yZGVycy10YWJsZS9vcmRlcnMtdGFibGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxxQ0FBQTtBQ0NGOztBREVBOztFQUVFLDBCQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL29yZGVycy10YWJsZS9vcmRlcnMtdGFibGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LXJvdzpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjA0KTtcclxufVxyXG5cclxudGQsXHJcbnRoIHtcclxuICBwYWRkaW5nOiAwIDEwcHggIWltcG9ydGFudDtcclxufVxyXG4iLCIubWF0LXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC4wNCk7XG59XG5cbnRkLFxudGgge1xuICBwYWRkaW5nOiAwIDEwcHggIWltcG9ydGFudDtcbn0iXX0= */";
     /***/
   },
 
@@ -1326,6 +1326,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.dataSource.sort = this.sort;
         }
       }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges() {
+          if (this.dataSource) {
+            this.dataSource.data = this.orders;
+          }
+        }
+      }, {
         key: "applyFilter",
         value: function applyFilter(filterValue) {
           this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -1382,7 +1389,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".spacer {\n  flex: 1 1 auto;\n}\n\nbutton {\n  margin-left: 16px;\n}\n\n.toolbar {\n  margin: 30px 0 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9jb21wb25lbnRzL29yZGVycy9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVyc1xcc3JjL2FwcFxcY29tcG9uZW50c1xcb3JkZXJzXFxvcmRlcnMuY29tcG9uZW50LnNjc3MiLCJhcHAvY29tcG9uZW50cy9vcmRlcnMvb3JkZXJzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBQTtBQ0NGOztBREVBO0VBQ0UsaUJBQUE7QUNDRjs7QURFQTtFQUNFLG1CQUFBO0FDQ0YiLCJmaWxlIjoiYXBwL2NvbXBvbmVudHMvb3JkZXJzL29yZGVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zcGFjZXIge1xyXG4gIGZsZXg6IDEgMSBhdXRvO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gIG1hcmdpbi1sZWZ0OiAxNnB4O1xyXG59XHJcblxyXG4udG9vbGJhciB7XHJcbiAgbWFyZ2luOiAzMHB4IDAgNDBweDtcclxufVxyXG4iLCIuc3BhY2VyIHtcbiAgZmxleDogMSAxIGF1dG87XG59XG5cbmJ1dHRvbiB7XG4gIG1hcmdpbi1sZWZ0OiAxNnB4O1xufVxuXG4udG9vbGJhciB7XG4gIG1hcmdpbjogMzBweCAwIDQwcHg7XG59Il19 */";
+    __webpack_exports__["default"] = ".spacer {\n  flex: 1 1 auto;\n}\n\nbutton {\n  margin-left: 16px;\n}\n\n.toolbar {\n  margin: 30px 0 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9vcmRlcnMvQzpcXFVzZXJzXFxhc2N1a2luc1xccHJvamVjdHNcXGltcG9ydC1vcmRlcnMvc3JjXFxhcHBcXGNvbXBvbmVudHNcXG9yZGVyc1xcb3JkZXJzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL29yZGVycy9vcmRlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxjQUFBO0FDQ0Y7O0FERUE7RUFDRSxpQkFBQTtBQ0NGOztBREVBO0VBQ0UsbUJBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvb3JkZXJzL29yZGVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zcGFjZXIge1xyXG4gIGZsZXg6IDEgMSBhdXRvO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gIG1hcmdpbi1sZWZ0OiAxNnB4O1xyXG59XHJcblxyXG4udG9vbGJhciB7XHJcbiAgbWFyZ2luOiAzMHB4IDAgNDBweDtcclxufVxyXG4iLCIuc3BhY2VyIHtcbiAgZmxleDogMSAxIGF1dG87XG59XG5cbmJ1dHRvbiB7XG4gIG1hcmdpbi1sZWZ0OiAxNnB4O1xufVxuXG4udG9vbGJhciB7XG4gIG1hcmdpbjogMzBweCAwIDQwcHg7XG59Il19 */";
     /***/
   },
 
@@ -1524,6 +1531,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
 
     var OrderStoreService =
     /*#__PURE__*/
@@ -1531,8 +1544,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       function OrderStoreService() {
         _classCallCheck(this, OrderStoreService);
 
-        // TODO remove
+        this.mainOrders$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.externalOrders$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]); // TODO remove
         // console.log('store init');
+
         var items = [{
           productId: '1',
           name: 'Christmas Dog Socks',
@@ -1672,6 +1687,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           orderItems: items,
           address: address
         }];
+        this.mainOrders$.next(this.mainOrders);
+        this.externalOrders$.next(this.externalOrders);
       }
 
       _createClass(OrderStoreService, [{
@@ -1680,11 +1697,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.externalOrders = this.externalOrders.filter(function (o) {
             return o.id !== order.id;
           });
+          this.externalOrders$.next(this.externalOrders);
         }
       }, {
         key: "addToMainOrders",
         value: function addToMainOrders(order) {
           this.mainOrders = [].concat(_toConsumableArray(this.mainOrders), [order]);
+          this.mainOrders$.next(this.mainOrders);
         }
       }, {
         key: "addImportedToMainOrders",
