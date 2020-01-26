@@ -45,7 +45,33 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-toolbar>\n  <span> Import Order </span>\n</mat-toolbar>\n\n<mat-horizontal-stepper [@.disabled]=\"true\" [linear]=\"true\">\n  <mat-step [completed]=\"order\">\n    <ng-template matStepLabel>Find Order</ng-template>\n    <div class=\"step-content\">\n      <app-orders-table\n        [displayedOrderColumns]=\"displayedOrderColumns\"\n        [orders]=\"store.externalOrders\"\n        (rowClick)=\"onOrderRowClick($event)\"\n      >\n      </app-orders-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Prepare Products</ng-template>\n    <div class=\"step-content\">\n      <div *ngIf=\"order\" class=\"breadcrumb\">\n        <span class=\"link\" (click)=\"stepper.reset()\">My Orders</span> | Order\n        {{ order?.id }}\n      </div>\n      <app-order-items-table\n        *ngIf=\"order?.orderItems\"\n        [orderItems]=\"order.orderItems\"\n      ></app-order-items-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button matStepperNext>Next</button>\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Confirm Order</ng-template>\n    <div class=\"step-content\">\n      <div\n        style=\"overflow-y: auto; max-height: 420px;\"\n        *ngIf=\"order?.orderItems\"\n      >\n        <div style=\"min-height: 150px;\">\n          <h3>Items</h3>\n          <div *ngFor=\"let item of order.orderItems\" style=\"padding: 5px;\">\n            <mat-checkbox\n              style=\"margin-right: 5px;\"\n              disabled\n              [checked]=\"item.selected\"\n            >\n            </mat-checkbox>\n            {{ item.sku }},\n            {{ item.name }}\n            <ng-container *ngIf=\"item.option\">\n              ,\n              <mat-icon>{{ item.option.icon }}</mat-icon>\n              {{ item.option.text }}\n            </ng-container>\n          </div>\n        </div>\n\n        <div class=\"two-column\">\n          <div>\n            <h3>Shipping</h3>\n            {{ order.customer }}<br />\n            {{ order.address.street }}<br />\n            {{ order.address.city }}<br />\n            {{ order.address.zip }}<br />\n            {{ order.address.state }}<br />\n            {{ order.address.country }}<br />\n          </div>\n          <div>\n            <h3>Production Subtotal</h3>\n            ...\n          </div>\n        </div>\n        <!-- <pre>{{ order | json }}</pre> -->\n      </div>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button [mat-dialog-close]=\"order\">\n        Confirm and Ship\n      </button>\n    </div>\n  </mat-step>\n</mat-horizontal-stepper>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-toolbar>\n  <span> Import Order </span>\n</mat-toolbar>\n\n<mat-horizontal-stepper [@.disabled]=\"true\" [linear]=\"true\">\n  <mat-step [completed]=\"store.selectedOrder\">\n    <ng-template matStepLabel>Find Order</ng-template>\n    <div class=\"step-content\">\n      <app-orders-table\n        [displayedOrderColumns]=\"displayedOrderColumns\"\n        [orders]=\"store.externalOrders\"\n        (rowClick)=\"onOrderRowClick($event)\"\n      >\n      </app-orders-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Prepare Products</ng-template>\n    <div class=\"step-content\">\n      <div *ngIf=\"store.selectedOrder\" class=\"breadcrumb\">\n        <span class=\"link\" (click)=\"stepper.reset()\">My Orders</span> | Order\n        {{ store.selectedOrder?.id }}\n      </div>\n      <app-order-items-table\n        *ngIf=\"store.selectedOrder?.orderItems\"\n        [orderItems]=\"store.selectedOrder.orderItems\"\n      ></app-order-items-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button matStepperNext>Next</button>\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Confirm Order</ng-template>\n    <div class=\"step-content\">\n      <app-order-details></app-order-details>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button [mat-dialog-close]=\"store.selectedOrder\">\n        Confirm and Ship\n      </button>\n    </div>\n  </mat-step>\n</mat-horizontal-stepper>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-details-dialog/order-details-dialog.component.html":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-details-dialog/order-details-dialog.component.html ***!
+  \***************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-toolbar>\n  <span> Order Details</span>\n</mat-toolbar>\n\n<div *mobxAutorun>\n  <div class=\"container\" (click)=\"onCancelClick()\">\n    <app-order-details></app-order-details>\n  </div>\n  <div class=\"button-bar\">\n    <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n  </div>\n</div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-details/order-details.component.html":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-details/order-details.component.html ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div *mobxAutorun>\n  <div\n    style=\"overflow-y: auto; max-height: 420px;\"\n    *ngIf=\"store.selectedOrder?.orderItems\"\n  >\n    <div style=\"min-height: 150px;\">\n      <h3>Items</h3>\n      <div\n        *ngFor=\"let item of store.selectedOrder.orderItems\"\n        style=\"padding: 5px;\"\n      >\n        <mat-checkbox\n          style=\"margin-right: 5px;\"\n          disabled\n          [checked]=\"item.selected\"\n        >\n        </mat-checkbox>\n        {{ item.amount }} x {{ item.SKU }},\n        {{ item.name }}\n        <ng-container *ngIf=\"item.option\">\n          ,\n          <mat-icon>{{ item.option.icon }}</mat-icon>\n          {{ item.option.text }}\n        </ng-container>\n      </div>\n    </div>\n\n    <div class=\"two-column\">\n      <div>\n        <h3>Shipping</h3>\n        {{ store.selectedOrder.customer.name }}<br />\n        {{ store.selectedOrder.customer.address.street }}<br />\n        {{ store.selectedOrder.customer.address.city }}<br />\n        {{ store.selectedOrder.customer.address.zip }}<br />\n        {{ store.selectedOrder.customer.address.state }}<br />\n        {{ store.selectedOrder.customer.address.country }}<br />\n      </div>\n      <div>\n        <div *ngIf=\"store.selectedOrderSelectedItems.length\">\n          <h3>Production Subtotal</h3>\n          <table>\n            <tr>\n              <th>SKU</th>\n              <th>Amount</th>\n              <th>Cost $</th>\n              <th>Price $</th>\n            </tr>\n            <ng-container *ngFor=\"let item of store.selectedOrderSelectedItems\">\n              <tr>\n                <td>{{ item.SKU }}</td>\n                <td>{{ item.amount }}</td>\n                <td>{{ item.cost / 100 }}</td>\n                <td>{{ item.price / 100 }}</td>\n              </tr>\n            </ng-container>\n          </table>\n\n          <p>Order cost $: {{ store.selectedOrderCost / 100 }}</p>\n          <p>Order price $: {{ store.selectedOrderPrice / 100 }}</p>\n        </div>\n      </div>\n    </div>\n    <!-- <pre>{{ order | json }}</pre> -->\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -58,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"amount\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>\n        Amount\n      </th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"amount\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"name\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"name\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"sku\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"sku\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"selected\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Selected</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-checkbox\n          (click)=\"$event.stopPropagation()\"\n          [checked]=\"item.selected\"\n          (change)=\"onCheckboxChange($event, item)\"\n        >\n        </mat-checkbox>\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"option\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product variant</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-form-field>\n          <mat-label>Variant</mat-label>\n          <mat-select [(value)]=\"item.option\">\n            <mat-select-trigger *ngIf=\"item.option\">\n              <mat-icon>{{ item.option.icon }}</mat-icon>\n              {{ item.option.text }}\n            </mat-select-trigger>\n            <mat-option\n              *ngFor=\"let option of item.availableOptions\"\n              [value]=\"option\"\n            >\n              <mat-icon>{{ option.icon }}</mat-icon>\n              {{ option.text }}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[4]\"></mat-paginator>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"amount\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>\n        Amount\n      </th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"amount\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"name\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"name\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"selected\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Selected</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-checkbox\n          (click)=\"$event.stopPropagation()\"\n          [checked]=\"item.selected\"\n          (change)=\"onCheckboxChange($event, item)\"\n        >\n        </mat-checkbox>\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"option\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product variant</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-form-field>\n          <mat-label>Variant</mat-label>\n          <mat-select [(value)]=\"item.option\">\n            <mat-select-trigger *ngIf=\"item.option\">\n              <mat-icon>{{ item.option.icon }}</mat-icon>\n              {{ item.option.text }}\n            </mat-select-trigger>\n            <mat-option\n              *ngFor=\"let option of item.availableOptions\"\n              [value]=\"option\"\n            >\n              <mat-icon>{{ option.icon }}</mat-icon>\n              {{ option.text }}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[4]\"></mat-paginator>\n</div>\n");
 
 /***/ }),
 
@@ -71,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-form-field class=\"w100\" appearance=\"outline\">\n    <mat-icon matPrefix>search</mat-icon>\n    <input\n      matInput\n      (keyup)=\"applyFilter($event.target.value)\"\n      placeholder=\"Filter\"\n    />\n  </mat-form-field>\n\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"id\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"customer\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"customer\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"created\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"created\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"revenue\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Revenue $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"revenue\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cost\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cost $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"cost\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"price\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"price\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"fulfillmentStage\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fulfillment</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"fulfillmentStage\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"amountOfProducts\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>\n        Amount Of Products\n      </th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"amountOfProducts\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"orderVolume\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Volume</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"orderVolume\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"pageSizeOptions\"></mat-paginator>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-form-field class=\"w100\" appearance=\"outline\">\n    <mat-icon matPrefix>search</mat-icon>\n    <input\n      matInput\n      (keyup)=\"applyFilter($event.target.value)\"\n      placeholder=\"Filter\"\n    />\n  </mat-form-field>\n\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"id\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"customer\">\n      <th mat-header-cell *matHeaderCellDef>Customer</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"customer\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"created\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"created\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"revenue\">\n      <th mat-header-cell *matHeaderCellDef>Revenue $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"revenue\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cost\">\n      <th mat-header-cell *matHeaderCellDef>Cost $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"cost\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"price\">\n      <th mat-header-cell *matHeaderCellDef>Price $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"price\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"fulfillmentStage\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fulfillment</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"fulfillmentStage\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"amountOfProducts\">\n      <th mat-header-cell *matHeaderCellDef>\n        Amount Of Products\n      </th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"amountOfProducts\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef>SKU</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"pageSizeOptions\"></mat-paginator>\n</div>\n");
 
 /***/ }),
 
@@ -84,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"toolbar mat-elevation-z8\">\n  <mat-toolbar>\n    <span> Orders </span>\n    <span class=\"spacer\"> </span>\n    <button mat-raised-button color=\"primary\" (click)=\"openImportDialog()\">\n      Import orders\n    </button>\n    <button mat-raised-button>NA1</button>\n    <button mat-raised-button>NA2</button>\n  </mat-toolbar>\n</div>\n\n<div class=\"mat-elevation-z8\" style=\"padding: 16px 16px 0;\">\n  <app-orders-table\n    [displayedOrderColumns]=\"displayedOrderColumns\"\n    [orders]=\"store.mainOrders\"\n    [pageSizeOptions]=\"[10, 30, 100]\"\n  ></app-orders-table>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"toolbar mat-elevation-z8\">\n  <mat-toolbar>\n    <span> Orders </span>\n    <span class=\"spacer\"> </span>\n    <button mat-raised-button color=\"primary\" (click)=\"openImportDialog()\">\n      Import orders\n    </button>\n    <button mat-raised-button>NA1</button>\n    <button mat-raised-button>NA2</button>\n  </mat-toolbar>\n</div>\n\n<div class=\"mat-elevation-z8\" style=\"padding: 16px 16px 0;\">\n  <app-orders-table\n    [displayedOrderColumns]=\"displayedOrderColumns\"\n    [orders]=\"store.mainOrders\"\n    [pageSizeOptions]=\"[10, 30, 100]\"\n    (rowClick)=\"onRowClick($event)\"\n  ></app-orders-table>\n</div>\n");
 
 /***/ }),
 
@@ -376,23 +402,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
-/* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/checkbox */ "./node_modules/@angular/material/esm2015/checkbox.js");
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm2015/form-field.js");
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
-/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm2015/paginator.js");
-/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm2015/select.js");
-/* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/sort */ "./node_modules/@angular/material/esm2015/sort.js");
-/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm2015/stepper.js");
-/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm2015/table.js");
-/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
-/* harmony import */ var _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/orders/orders.component */ "./src/app/components/orders/orders.component.ts");
-/* harmony import */ var _store_order_store_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./store/order-store.service */ "./src/app/store/order-store.service.ts");
-/* harmony import */ var _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/import-orders-dialog/import-orders-dialog.component */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.ts");
-/* harmony import */ var _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/orders-table/orders-table.component */ "./src/app/components/orders-table/orders-table.component.ts");
-/* harmony import */ var _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/order-items-table/order-items-table.component */ "./src/app/components/order-items-table/order-items-table.component.ts");
+/* harmony import */ var mobx_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! mobx-angular */ "./node_modules/mobx-angular/dist/mobx-angular.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
+/* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/checkbox */ "./node_modules/@angular/material/esm2015/checkbox.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm2015/form-field.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
+/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm2015/paginator.js");
+/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm2015/select.js");
+/* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/sort */ "./node_modules/@angular/material/esm2015/sort.js");
+/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm2015/stepper.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm2015/table.js");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
+/* harmony import */ var _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/orders/orders.component */ "./src/app/components/orders/orders.component.ts");
+/* harmony import */ var _store_order_store_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./store/order-store.service */ "./src/app/store/order-store.service.ts");
+/* harmony import */ var _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/import-orders-dialog/import-orders-dialog.component */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.ts");
+/* harmony import */ var _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/orders-table/orders-table.component */ "./src/app/components/orders-table/orders-table.component.ts");
+/* harmony import */ var _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/order-items-table/order-items-table.component */ "./src/app/components/order-items-table/order-items-table.component.ts");
+/* harmony import */ var _components_order_details_order_details_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/order-details/order-details.component */ "./src/app/components/order-details/order-details.component.ts");
+/* harmony import */ var _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/order-details-dialog/order-details-dialog.component */ "./src/app/components/order-details-dialog/order-details-dialog.component.ts");
+
+
+
 
 
 
@@ -421,33 +453,37 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
             _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-            _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_17__["OrdersComponent"],
-            _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_19__["ImportOrdersDialogComponent"],
-            _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_20__["OrdersTableComponent"],
-            _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_21__["OrderItemsTableComponent"]
+            _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_18__["OrdersComponent"],
+            _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_20__["ImportOrdersDialogComponent"],
+            _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_21__["OrdersTableComponent"],
+            _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_22__["OrderItemsTableComponent"],
+            _components_order_details_order_details_component__WEBPACK_IMPORTED_MODULE_23__["OrderDetailsComponent"],
+            _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_24__["OrderDetailsDialogComponent"]
         ],
         entryComponents: [
-            _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_19__["ImportOrdersDialogComponent"]
+            _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_20__["ImportOrdersDialogComponent"],
+            _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_24__["OrderDetailsDialogComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
-            _angular_material_button__WEBPACK_IMPORTED_MODULE_5__["MatButtonModule"],
-            _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_6__["MatCheckboxModule"],
-            _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__["MatDialogModule"],
-            _angular_material_form_field__WEBPACK_IMPORTED_MODULE_8__["MatFormFieldModule"],
-            _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__["MatIconModule"],
-            _angular_material_input__WEBPACK_IMPORTED_MODULE_10__["MatInputModule"],
-            _angular_material_paginator__WEBPACK_IMPORTED_MODULE_11__["MatPaginatorModule"],
-            _angular_material_select__WEBPACK_IMPORTED_MODULE_12__["MatSelectModule"],
-            _angular_material_sort__WEBPACK_IMPORTED_MODULE_13__["MatSortModule"],
-            _angular_material_stepper__WEBPACK_IMPORTED_MODULE_14__["MatStepperModule"],
-            _angular_material_table__WEBPACK_IMPORTED_MODULE_15__["MatTableModule"],
-            _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_16__["MatToolbarModule"],
+            mobx_angular__WEBPACK_IMPORTED_MODULE_5__["MobxAngularModule"],
+            _angular_material_button__WEBPACK_IMPORTED_MODULE_6__["MatButtonModule"],
+            _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"],
+            _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MatDialogModule"],
+            _angular_material_form_field__WEBPACK_IMPORTED_MODULE_9__["MatFormFieldModule"],
+            _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIconModule"],
+            _angular_material_input__WEBPACK_IMPORTED_MODULE_11__["MatInputModule"],
+            _angular_material_paginator__WEBPACK_IMPORTED_MODULE_12__["MatPaginatorModule"],
+            _angular_material_select__WEBPACK_IMPORTED_MODULE_13__["MatSelectModule"],
+            _angular_material_sort__WEBPACK_IMPORTED_MODULE_14__["MatSortModule"],
+            _angular_material_stepper__WEBPACK_IMPORTED_MODULE_15__["MatStepperModule"],
+            _angular_material_table__WEBPACK_IMPORTED_MODULE_16__["MatTableModule"],
+            _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_17__["MatToolbarModule"],
         ],
         providers: [
-            _store_order_store_service__WEBPACK_IMPORTED_MODULE_18__["OrderStoreService"],
-            { provide: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__["MAT_DIALOG_DEFAULT_OPTIONS"], useValue: { hasBackdrop: true, maxWidth: 850, minWidth: '850px' } }
+            _store_order_store_service__WEBPACK_IMPORTED_MODULE_19__["OrderStoreService"],
+            { provide: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MAT_DIALOG_DEFAULT_OPTIONS"], useValue: { hasBackdrop: true, maxWidth: 850, minWidth: '850px' } }
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
     })
@@ -466,7 +502,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".mat-stepper-horizontal {\n  margin-top: 20px;\n}\n.mat-stepper-horizontal .button-bar {\n  text-align: right;\n}\n.mat-stepper-horizontal .button-bar button {\n  margin-left: 16px;\n}\n.mat-stepper-horizontal .step-content {\n  padding-bottom: 16px;\n  min-height: 420px;\n}\n.breadcrumb {\n  padding-left: 24px;\n  font-weight: bold;\n}\n.two-column {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVycy9zcmNcXGFwcFxcY29tcG9uZW50c1xcaW1wb3J0LW9yZGVycy1kaWFsb2dcXGltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2ltcG9ydC1vcmRlcnMtZGlhbG9nL2ltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQUE7QUNDRjtBRENFO0VBQ0UsaUJBQUE7QUNDSjtBREFJO0VBQ0UsaUJBQUE7QUNFTjtBREVFO0VBQ0Usb0JBQUE7RUFDQSxpQkFBQTtBQ0FKO0FESUE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0FDREY7QURJQTtFQUNFLGFBQUE7RUFDQSw4QkFBQTtBQ0RGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9pbXBvcnQtb3JkZXJzLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcclxuICBtYXJnaW4tdG9wOiAyMHB4O1xyXG5cclxuICAuYnV0dG9uLWJhciB7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIGJ1dHRvbiB7XHJcbiAgICAgIG1hcmdpbi1sZWZ0OiAxNnB4O1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLnN0ZXAtY29udGVudCB7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTZweDtcclxuICAgIG1pbi1oZWlnaHQ6IDQyMHB4O1xyXG4gIH1cclxufVxyXG5cclxuLmJyZWFkY3J1bWIge1xyXG4gIHBhZGRpbmctbGVmdDogMjRweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLnR3by1jb2x1bW4ge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xyXG59XHJcbiIsIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5idXR0b24tYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG4ubWF0LXN0ZXBwZXItaG9yaXpvbnRhbCAuYnV0dG9uLWJhciBidXR0b24ge1xuICBtYXJnaW4tbGVmdDogMTZweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5zdGVwLWNvbnRlbnQge1xuICBwYWRkaW5nLWJvdHRvbTogMTZweDtcbiAgbWluLWhlaWdodDogNDIwcHg7XG59XG5cbi5icmVhZGNydW1iIHtcbiAgcGFkZGluZy1sZWZ0OiAyNHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLnR3by1jb2x1bW4ge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnI7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".mat-stepper-horizontal {\n  margin-top: 20px;\n}\n.mat-stepper-horizontal .button-bar {\n  text-align: right;\n}\n.mat-stepper-horizontal .button-bar button {\n  margin-left: 16px;\n}\n.mat-stepper-horizontal .step-content {\n  padding-bottom: 16px;\n  min-height: 420px;\n}\n.breadcrumb {\n  padding-left: 24px;\n  font-weight: bold;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9pbXBvcnQtb3JkZXJzLWRpYWxvZy9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVycy9zcmNcXGFwcFxcY29tcG9uZW50c1xcaW1wb3J0LW9yZGVycy1kaWFsb2dcXGltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2ltcG9ydC1vcmRlcnMtZGlhbG9nL2ltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQUE7QUNDRjtBRENFO0VBQ0UsaUJBQUE7QUNDSjtBREFJO0VBQ0UsaUJBQUE7QUNFTjtBREVFO0VBQ0Usb0JBQUE7RUFDQSxpQkFBQTtBQ0FKO0FESUE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0FDREYiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2ltcG9ydC1vcmRlcnMtZGlhbG9nL2ltcG9ydC1vcmRlcnMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1hdC1zdGVwcGVyLWhvcml6b250YWwge1xyXG4gIG1hcmdpbi10b3A6IDIwcHg7XHJcblxyXG4gIC5idXR0b24tYmFyIHtcclxuICAgIHRleHQtYWxpZ246IHJpZ2h0O1xyXG4gICAgYnV0dG9uIHtcclxuICAgICAgbWFyZ2luLWxlZnQ6IDE2cHg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAuc3RlcC1jb250ZW50IHtcclxuICAgIHBhZGRpbmctYm90dG9tOiAxNnB4O1xyXG4gICAgbWluLWhlaWdodDogNDIwcHg7XHJcbiAgfVxyXG59XHJcblxyXG4uYnJlYWRjcnVtYiB7XHJcbiAgcGFkZGluZy1sZWZ0OiAyNHB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcbiIsIi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIHtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5idXR0b24tYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG4ubWF0LXN0ZXBwZXItaG9yaXpvbnRhbCAuYnV0dG9uLWJhciBidXR0b24ge1xuICBtYXJnaW4tbGVmdDogMTZweDtcbn1cbi5tYXQtc3RlcHBlci1ob3Jpem9udGFsIC5zdGVwLWNvbnRlbnQge1xuICBwYWRkaW5nLWJvdHRvbTogMTZweDtcbiAgbWluLWhlaWdodDogNDIwcHg7XG59XG5cbi5icmVhZGNydW1iIHtcbiAgcGFkZGluZy1sZWZ0OiAyNHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -495,10 +531,10 @@ let ImportOrdersDialogComponent = class ImportOrdersDialogComponent {
         this.store = store;
         this.dialogRef = dialogRef;
         this.data = data;
-        this.displayedOrderColumns = ['id', 'customer', 'amountOfProducts', 'orderVolume', 'SKU'];
+        this.displayedOrderColumns = ['id', 'customer', 'amountOfProducts', 'price', 'SKU'];
     }
     onOrderRowClick(order) {
-        this.order = order;
+        this.store.setSelectedOrder(order);
         this.stepper.selected.completed = true;
         this.stepper.next();
     }
@@ -518,10 +554,114 @@ ImportOrdersDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-import-orders-dialog',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./import-orders-dialog.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/import-orders-dialog/import-orders-dialog.component.html")).default,
+        changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./import-orders-dialog.component.scss */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.scss")).default]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]))
 ], ImportOrdersDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/order-details-dialog/order-details-dialog.component.scss":
+/*!*************************************************************************************!*\
+  !*** ./src/app/components/order-details-dialog/order-details-dialog.component.scss ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".container {\n  padding: 0 16px;\n}\n\n.button-bar {\n  text-align: right;\n  padding: 24px 16px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9vcmRlci1kZXRhaWxzLWRpYWxvZy9DOlxcVXNlcnNcXGFzY3VraW5zXFxwcm9qZWN0c1xcaW1wb3J0LW9yZGVycy9zcmNcXGFwcFxcY29tcG9uZW50c1xcb3JkZXItZGV0YWlscy1kaWFsb2dcXG9yZGVyLWRldGFpbHMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL29yZGVyLWRldGFpbHMtZGlhbG9nL29yZGVyLWRldGFpbHMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtBQ0NGOztBREVBO0VBQ0UsaUJBQUE7RUFDQSxrQkFBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9vcmRlci1kZXRhaWxzLWRpYWxvZy9vcmRlci1kZXRhaWxzLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250YWluZXIge1xyXG4gIHBhZGRpbmc6IDAgMTZweDtcclxufVxyXG5cclxuLmJ1dHRvbi1iYXIge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG4gIHBhZGRpbmc6IDI0cHggMTZweDtcclxufVxyXG4iLCIuY29udGFpbmVyIHtcbiAgcGFkZGluZzogMCAxNnB4O1xufVxuXG4uYnV0dG9uLWJhciB7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xuICBwYWRkaW5nOiAyNHB4IDE2cHg7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/components/order-details-dialog/order-details-dialog.component.ts":
+/*!***********************************************************************************!*\
+  !*** ./src/app/components/order-details-dialog/order-details-dialog.component.ts ***!
+  \***********************************************************************************/
+/*! exports provided: OrderDetailsDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderDetailsDialogComponent", function() { return OrderDetailsDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+
+
+
+let OrderDetailsDialogComponent = class OrderDetailsDialogComponent {
+    constructor(dialogRef) {
+        this.dialogRef = dialogRef;
+    }
+    onCancelClick() {
+        this.dialogRef.close();
+    }
+};
+OrderDetailsDialogComponent.ctorParameters = () => [
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] }
+];
+OrderDetailsDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-order-details-dialog',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./order-details-dialog.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-details-dialog/order-details-dialog.component.html")).default,
+        changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./order-details-dialog.component.scss */ "./src/app/components/order-details-dialog/order-details-dialog.component.scss")).default]
+    })
+], OrderDetailsDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/order-details/order-details.component.scss":
+/*!***********************************************************************!*\
+  !*** ./src/app/components/order-details/order-details.component.scss ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".two-column {\n  padding: 0 10px;\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n}\n.two-column table {\n  width: 100%;\n  text-align: right;\n}\n.two-column table td,\n.two-column table th {\n  padding: 3px;\n}\n.two-column p {\n  font-weight: bold;\n  text-align: right;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9vcmRlci1kZXRhaWxzL0M6XFxVc2Vyc1xcYXNjdWtpbnNcXHByb2plY3RzXFxpbXBvcnQtb3JkZXJzL3NyY1xcYXBwXFxjb21wb25lbnRzXFxvcmRlci1kZXRhaWxzXFxvcmRlci1kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL29yZGVyLWRldGFpbHMvb3JkZXItZGV0YWlscy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxhQUFBO0VBQ0EsOEJBQUE7QUNDRjtBRENFO0VBQ0UsV0FBQTtFQUNBLGlCQUFBO0FDQ0o7QURBSTs7RUFFRSxZQUFBO0FDRU47QURFRTtFQUNFLGlCQUFBO0VBQ0EsaUJBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvb3JkZXItZGV0YWlscy9vcmRlci1kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnR3by1jb2x1bW4ge1xyXG4gIHBhZGRpbmc6IDAgMTBweDtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmcjtcclxuXHJcbiAgdGFibGUge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIHRkLFxyXG4gICAgdGgge1xyXG4gICAgICBwYWRkaW5nOiAzcHg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICBwIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbiAgfVxyXG59XHJcbiIsIi50d28tY29sdW1uIHtcbiAgcGFkZGluZzogMCAxMHB4O1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnI7XG59XG4udHdvLWNvbHVtbiB0YWJsZSB7XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LWFsaWduOiByaWdodDtcbn1cbi50d28tY29sdW1uIHRhYmxlIHRkLFxuLnR3by1jb2x1bW4gdGFibGUgdGgge1xuICBwYWRkaW5nOiAzcHg7XG59XG4udHdvLWNvbHVtbiBwIHtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xufSJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/components/order-details/order-details.component.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/order-details/order-details.component.ts ***!
+  \*********************************************************************/
+/*! exports provided: OrderDetailsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderDetailsComponent", function() { return OrderDetailsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_store_order_store_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/store/order-store.service */ "./src/app/store/order-store.service.ts");
+
+
+
+let OrderDetailsComponent = class OrderDetailsComponent {
+    constructor(store) {
+        this.store = store;
+    }
+};
+OrderDetailsComponent.ctorParameters = () => [
+    { type: src_app_store_order_store_service__WEBPACK_IMPORTED_MODULE_2__["OrderStoreService"] }
+];
+OrderDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-order-details',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./order-details.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-details/order-details.component.html")).default,
+        changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./order-details.component.scss */ "./src/app/components/order-details/order-details.component.scss")).default]
+    })
+], OrderDetailsComponent);
 
 
 
@@ -562,7 +702,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let OrderItemsTableComponent = class OrderItemsTableComponent {
     constructor() {
-        this.displayedOrderColumns = ['name', 'option', 'sku', 'selected'];
+        this.displayedOrderColumns = ['name', 'option', 'SKU', 'amount', 'selected'];
         this.rowClick = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
     getOrderItemCellValue(orderItem, cell) {
@@ -573,6 +713,11 @@ let OrderItemsTableComponent = class OrderItemsTableComponent {
                 return orderItem[cell] ? orderItem[cell].text : 'not selected';
             default:
                 return orderItem[cell];
+        }
+    }
+    ngOnChanges() {
+        if (this.dataSource) {
+            this.dataSource.data = this.orderItems;
         }
     }
     onCheckboxChange($event, orderItem) {
@@ -603,6 +748,7 @@ OrderItemsTableComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-order-items-table',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./order-items-table.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/order-items-table/order-items-table.component.html")).default,
+        changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./order-items-table.component.scss */ "./src/app/components/order-items-table/order-items-table.component.scss")).default]
     })
 ], OrderItemsTableComponent);
@@ -649,22 +795,46 @@ let OrdersTableComponent = class OrdersTableComponent {
         this.pageSizeOptions = [5];
         this.rowClick = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
+    addPlus(n) {
+        if (n > 0) {
+            return '+' + n;
+        }
+        else {
+            return n;
+        }
+    }
+    currencyToString(amount) {
+        const s = String(amount);
+        return s.substring(0, s.length - 2) + '.' + s.substring(s.length - 2);
+    }
     getOrderCellValue(order, cell) {
+        let sum;
+        let SKUs;
         const dateOptions = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
         switch (cell) {
+            case 'customer':
+                return order.customer.name;
             case 'created':
                 return order[cell].toLocaleDateString('en-US', dateOptions);
+            case 'amountOfProducts':
+                sum = 0;
+                order.orderItems.forEach(i => sum += i.amount);
+                return sum;
             case 'revenue':
             case 'cost':
             case 'price':
-                if (order[cell] > 0) {
-                    return '+' + order[cell];
+                sum = 0;
+                order.orderItems.forEach(i => sum += i[cell] * i.amount);
+                return this.currencyToString(this.addPlus(sum));
+            case 'SKU':
+                SKUs = [];
+                order.orderItems.forEach(i => SKUs.push(i.SKU));
+                if (SKUs.length > 3) {
+                    return SKUs.slice(0, 2).join(', ') + `, (+${SKUs.length - 2})`;
                 }
                 else {
-                    return order[cell];
+                    return SKUs.join(', ');
                 }
-            case 'orderVolume':
-                return order[cell] + ' $';
             default:
                 return order[cell];
         }
@@ -747,6 +917,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_store_order_store_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/store/order-store.service */ "./src/app/store/order-store.service.ts");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
 /* harmony import */ var _import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../import-orders-dialog/import-orders-dialog.component */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.ts");
+/* harmony import */ var _order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../order-details-dialog/order-details-dialog.component */ "./src/app/components/order-details-dialog/order-details-dialog.component.ts");
+
 
 
 
@@ -771,6 +943,13 @@ let OrdersComponent = class OrdersComponent {
             }
         });
     }
+    onRowClick(order) {
+        this.store.setSelectedOrder(order);
+        const dialogRef = this.dialog.open(_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_5__["OrderDetailsDialogComponent"]);
+        dialogRef.afterClosed().subscribe(() => {
+            this.store.setSelectedOrder(undefined);
+        });
+    }
 };
 OrdersComponent.ctorParameters = () => [
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialog"] },
@@ -792,200 +971,172 @@ OrdersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!**********************************************!*\
   !*** ./src/app/store/order-store.service.ts ***!
   \**********************************************/
-/*! exports provided: OrderStoreService */
+/*! exports provided: pickRandomly, randomArray, randomAddress, randomCustomer, randomProductOption, randomOrderItem, randomDate, randomOrder, OrderStoreService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pickRandomly", function() { return pickRandomly; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomArray", function() { return randomArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomAddress", function() { return randomAddress; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomCustomer", function() { return randomCustomer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomProductOption", function() { return randomProductOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomOrderItem", function() { return randomOrderItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomDate", function() { return randomDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomOrder", function() { return randomOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderStoreService", function() { return OrderStoreService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var mobx_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mobx-angular */ "./node_modules/mobx-angular/dist/mobx-angular.js");
 
 
 
+function pickRandomly(arr) {
+    if (Array.isArray(arr) && arr.length) {
+        const choice = Math.floor(Math.random() * arr.length - 0.0000001);
+        return arr[choice];
+    }
+    else {
+        return null;
+    }
+}
+function randomArray(approxLength, getItem) {
+    const length = Math.round(approxLength / 2 + Math.random() * approxLength);
+    const array = [];
+    for (let i = 0; i < length; i++) {
+        array.push(getItem());
+    }
+    return array;
+}
+function randomAddress() {
+    const address = {
+        street: pickRandomly(['Brivibas iela', 'Agatan', 'Beehive street', 'Mazkupenas iela', 'Calle Nevada']),
+        city: pickRandomly(['Riga', 'New-York', 'Reno', 'Paris', 'Ventspils', 'Moscow']),
+        zip: String(Math.floor(Math.random() * 1000000)),
+        state: pickRandomly(['Grkalnas pagasts', 'LA', 'NY', 'CA', 'TX']),
+        country: pickRandomly(['USA', 'France', 'Italy', 'Latvia'])
+    };
+    return address;
+}
+function randomCustomer() {
+    const names = ['John', 'Doe', 'Patrick', 'Linda', 'Bill', 'Peter', 'Ivan', 'Jackson', 'Barbara', 'Ieva', 'Norton', 'Donald'];
+    const customer = {
+        name: pickRandomly(names) + ' ' + pickRandomly(names),
+        address: randomAddress()
+    };
+    return customer;
+}
+function randomProductOption() {
+    const productOption = {
+        icon: pickRandomly(['pregnant_woman', 'sports_handball', 'android', 'build', 'eco', 'rowing', 'pets', 'wc', 'house', 'bathtub',
+            'casino', 'spa', 'sports_golf']),
+        text: pickRandomly(['Heavy Wool', 'Cotton', 'Cotton', 'Light', 'Bold', 'Wide', 'Narrow', 'Slim', 'Oversize', 'Small', 'Large',
+            'Red', 'Green', 'Blue', 'Yellow', 'Violet', 'Black', 'White', 'Junior', 'Senior', 'Gift-boxed', 'Outlet'])
+    };
+    return productOption;
+}
+function randomOrderItem() {
+    const cost = -Math.floor(Math.random() * 4000);
+    const price = -Math.floor(cost - cost * 0.5 * Math.random());
+    const orderItem = {
+        productId: String(Math.floor(Math.random() * 1000000)),
+        name: pickRandomly(['Christmas Dog Socks', 'Christmas Cat Socks', 'Hat', 'Shirt', 'T-shirt', 'Gloves', 'Jacket', 'Jeans']),
+        SKU: pickRandomly(['SOCK_101_BIG_1', 'SPOON_123_BIG_1', 'ITEM_99_HZ_5',
+            'OTHER_' + (Math.floor(Math.random() * 1000)), 'ITEM_' + (Math.floor(Math.random() * 1000)),
+            'WEAR_' + (Math.floor(Math.random() * 1000))]),
+        amount: Math.floor(1 + Math.random() * 12),
+        revenue: -(price + cost),
+        cost,
+        price,
+        options: [],
+        selected: true,
+        availableOptions: randomArray(4, randomProductOption)
+    };
+    return orderItem;
+}
+function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+function randomOrder() {
+    const order = {
+        id: '#' + String(Math.floor(Math.random() * 1000000)),
+        created: randomDate(new Date('2019-01-01'), new Date('2020-01-01')),
+        customer: randomCustomer(),
+        fulfillmentStage: pickRandomly(['In production', 'Quality Control']),
+        orderItems: randomArray(3, randomOrderItem)
+    };
+    return order;
+}
 let OrderStoreService = class OrderStoreService {
     constructor() {
-        this.mainOrders$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
-        this.externalOrders$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         // TODO remove
         // console.log('store init');
-        const items = [
-            {
-                productId: '1',
-                name: 'Christmas Dog Socks',
-                sku: 'SOCK_101_BIG_1',
-                amount: 4,
-                price: 8.99,
-                options: [],
-                availableOptions: [
-                    {
-                        text: 'Heavy Wool Socks',
-                        icon: 'pregnant_woman'
-                    },
-                    {
-                        text: 'Crew Socks',
-                        icon: 'sports_handball'
-                    },
-                    {
-                        text: 'Light Socks',
-                        icon: 'android'
-                    }
-                ]
-            },
-            {
-                productId: '2',
-                name: 'Christmas Cat Socks',
-                sku: 'SOCK_201_BIG_1',
-                amount: 3,
-                price: 9.15,
-                options: [],
-                availableOptions: [
-                    {
-                        text: 'Heavy Wool Socks',
-                        icon: 'pregnant_woman'
-                    },
-                    {
-                        text: 'Crew Socks',
-                        icon: 'sports_handball'
-                    },
-                    {
-                        text: 'Light Socks',
-                        icon: 'android'
-                    }
-                ],
-                selected: true
-            },
-        ];
-        const address = {
-            street: 'lorem ipsum street address',
-            city: 'Riga',
-            zip: 'LV-1017',
-            state: 'CA',
-            country: 'USA'
-        };
-        this.mainOrders = [
-            {
-                id: '#1234',
-                customer: 'John Doe',
-                created: new Date('03-15 14:14'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'In production'
-            },
-            {
-                id: '#1235',
-                customer: 'John Doe',
-                created: new Date('03-16 15:14'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Quality Control'
-            },
-        ];
-        this.externalOrders = [
-            {
-                id: '#1234',
-                customer: 'John Doe',
-                created: new Date('04-15 14:14'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Incoming',
-                amountOfProducts: 2,
-                orderVolume: 54.43,
-                SKU: 'SOCK_101_BIG_1',
-                orderItems: items,
-                address
-            },
-            {
-                id: '#1235',
-                customer: 'John Doe',
-                created: new Date('05-17 14:14'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Incoming',
-                amountOfProducts: 3,
-                orderVolume: 64.43,
-                SKU: 'SOCK_101_BIG_2',
-                orderItems: items,
-                address
-            },
-            {
-                id: '#1135',
-                customer: 'Donald Trump',
-                created: new Date('06-22 11:00'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Incoming',
-                amountOfProducts: 40,
-                orderVolume: 19.99,
-                SKU: 'SPOON_123_BIG_1',
-                orderItems: items,
-                address
-            },
-            {
-                id: '#1136',
-                customer: 'Hillary Clinton',
-                created: new Date('06-23 18:40'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Incoming',
-                amountOfProducts: 8,
-                orderVolume: 1504.11,
-                SKU: 'ITEM_99_HZ_5',
-                orderItems: items,
-                address
-            },
-            {
-                id: '#1352',
-                customer: 'Peter Norton',
-                created: new Date('05-17 14:14'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Incoming',
-                amountOfProducts: 23,
-                orderVolume: 614.43,
-                SKU: 'SOCK_101_BIG_2',
-                orderItems: items,
-                address
-            },
-            {
-                id: '#135',
-                customer: 'Bill Gates',
-                created: new Date('06-22 11:00'),
-                revenue: 5.15,
-                cost: -15.15,
-                price: 10,
-                fulfillmentStage: 'Incoming',
-                amountOfProducts: 4,
-                orderVolume: 196.99,
-                SKU: 'SPOON_123_BIG_1',
-                orderItems: items,
-                address
-            },
-        ];
-        this.mainOrders$.next(this.mainOrders);
-        this.externalOrders$.next(this.externalOrders);
+        this.mainOrders = randomArray(4, randomOrder);
+        this.externalOrders = randomArray(20, randomOrder);
+        this.externalOrders.forEach(o => o.fulfillmentStage = 'Incoming');
+    }
+    get selectedOrderSelectedItems() {
+        if (this.selectedOrder) {
+            return this.selectedOrder.orderItems.filter(i => i.selected);
+        }
+        else {
+            return [];
+        }
+    }
+    get selectedOrderCost() {
+        let sum = 0;
+        this.selectedOrderSelectedItems.forEach(i => sum += i.cost * i.amount);
+        return sum;
+    }
+    get selectedOrderPrice() {
+        let sum = 0;
+        this.selectedOrderSelectedItems.forEach(i => sum += i.price * i.amount);
+        return sum;
+    }
+    setSelectedOrder(order) {
+        this.selectedOrder = order;
     }
     deleteFromExternalOrders(order) {
         this.externalOrders = this.externalOrders.filter(o => o.id !== order.id);
-        this.externalOrders$.next(this.externalOrders);
     }
     addToMainOrders(order) {
         this.mainOrders = [...this.mainOrders, order];
-        this.mainOrders$.next(this.mainOrders);
     }
     addImportedToMainOrders(order) {
         order.fulfillmentStage = 'Imported';
         this.addToMainOrders(order);
     }
 };
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["observable"]
+], OrderStoreService.prototype, "mainOrders", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["observable"]
+], OrderStoreService.prototype, "externalOrders", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["observable"]
+], OrderStoreService.prototype, "selectedOrder", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["computed"]
+], OrderStoreService.prototype, "selectedOrderSelectedItems", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["computed"]
+], OrderStoreService.prototype, "selectedOrderCost", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["computed"]
+], OrderStoreService.prototype, "selectedOrderPrice", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
+], OrderStoreService.prototype, "setSelectedOrder", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
+], OrderStoreService.prototype, "deleteFromExternalOrders", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
+], OrderStoreService.prototype, "addToMainOrders", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
+], OrderStoreService.prototype, "addImportedToMainOrders", null);
 OrderStoreService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
