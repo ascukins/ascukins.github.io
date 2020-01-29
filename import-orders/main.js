@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <app-orders></app-orders>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"loading-non-modal\" *ngIf=\"isBusy\">\n  <mat-spinner diameter=\"100\"></mat-spinner>\n</div>\n<div class=\"container\">\n  <app-orders></app-orders>\n</div>\n");
 
 /***/ }),
 
@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-toolbar>\n  <span> Import Order </span>\n</mat-toolbar>\n\n<mat-horizontal-stepper [@.disabled]=\"true\" [linear]=\"true\">\n  <mat-step [completed]=\"store.selectedOrder\">\n    <ng-template matStepLabel>Find Order</ng-template>\n    <div class=\"step-content\">\n      <app-orders-table\n        [displayedOrderColumns]=\"displayedOrderColumns\"\n        [orders]=\"store.externalOrders\"\n        (rowClick)=\"onOrderRowClick($event)\"\n      >\n      </app-orders-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Prepare Products</ng-template>\n    <div class=\"step-content\">\n      <div *ngIf=\"store.selectedOrder\" class=\"breadcrumb\">\n        <span class=\"link\" (click)=\"stepper.reset()\">My Orders</span> | Order\n        {{ store.selectedOrder?.id }}\n      </div>\n      <app-order-items-table\n        *ngIf=\"store.selectedOrder?.orderItems\"\n        [orderItems]=\"store.selectedOrder.orderItems\"\n      ></app-order-items-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button matStepperNext>Next</button>\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Confirm Order</ng-template>\n    <div class=\"step-content\">\n      <app-order-details></app-order-details>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button [mat-dialog-close]=\"store.selectedOrder\">\n        Confirm and Ship\n      </button>\n    </div>\n  </mat-step>\n</mat-horizontal-stepper>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-toolbar>\n  <span> Import Order </span>\n</mat-toolbar>\n\n<mat-horizontal-stepper [@.disabled]=\"true\" [linear]=\"true\" *mobxAutorun>\n  <mat-step [completed]=\"store.selectedOrder\">\n    <ng-template matStepLabel>Find Order</ng-template>\n    <div class=\"step-content\" *ngIf=\"store.importableOrders.length\">\n      <app-orders-table\n        [displayedOrderColumns]=\"displayedOrderColumns\"\n        [orders]=\"store.importableOrders\"\n        (rowClick)=\"onOrderRowClick($event)\"\n      >\n      </app-orders-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Prepare Products</ng-template>\n    <div class=\"step-content\">\n      <div *ngIf=\"store.selectedOrder\" class=\"breadcrumb\">\n        <span class=\"link\" (click)=\"stepper.reset()\">My Orders</span> | Order\n        {{ store.selectedOrder?.id }}\n      </div>\n      <app-order-items-table\n        *ngIf=\"store.selectedOrder?.orderItems\"\n        [orderItems]=\"store.selectedOrder.orderItems\"\n      ></app-order-items-table>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button matStepperNext>Next</button>\n      <button mat-raised-button (click)=\"onCancelClick()\">Cancel</button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n    <ng-template matStepLabel>Confirm Order</ng-template>\n    <div class=\"step-content\">\n      <app-order-details></app-order-details>\n    </div>\n    <div class=\"button-bar\">\n      <button mat-raised-button matStepperPrevious>Previous</button>\n      <button mat-raised-button [mat-dialog-close]=\"store.selectedOrder\">\n        Confirm and Ship\n      </button>\n    </div>\n  </mat-step>\n</mat-horizontal-stepper>\n");
 
 /***/ }),
 
@@ -71,7 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *mobxAutorun>\n  <div\n    style=\"overflow-y: auto; max-height: 420px;\"\n    *ngIf=\"store.selectedOrder?.orderItems\"\n  >\n    <div style=\"min-height: 150px;\">\n      <h3>Items</h3>\n      <div\n        *ngFor=\"let item of store.selectedOrder.orderItems\"\n        style=\"padding: 5px;\"\n      >\n        <mat-checkbox\n          style=\"margin-right: 5px;\"\n          disabled\n          [checked]=\"item.selected\"\n        >\n        </mat-checkbox>\n        {{ item.amount }} x {{ item.SKU }},\n        {{ item.name }}\n        <ng-container *ngIf=\"item.option\">\n          ,\n          <mat-icon>{{ item.option.icon }}</mat-icon>\n          {{ item.option.text }}\n        </ng-container>\n      </div>\n    </div>\n\n    <div class=\"two-column\">\n      <div>\n        <h3>Shipping</h3>\n        {{ store.selectedOrder.customer.name }}<br />\n        {{ store.selectedOrder.customer.address.street }}<br />\n        {{ store.selectedOrder.customer.address.city }}<br />\n        {{ store.selectedOrder.customer.address.zip }}<br />\n        {{ store.selectedOrder.customer.address.state }}<br />\n        {{ store.selectedOrder.customer.address.country }}<br />\n      </div>\n      <div>\n        <div *ngIf=\"store.selectedOrderSelectedItems.length\">\n          <h3>Production Subtotal</h3>\n          <table>\n            <tr>\n              <th>SKU</th>\n              <th>Amount</th>\n              <th>Cost $</th>\n              <th>Price $</th>\n            </tr>\n            <ng-container *ngFor=\"let item of store.selectedOrderSelectedItems\">\n              <tr>\n                <td>{{ item.SKU }}</td>\n                <td>{{ item.amount }}</td>\n                <td>{{ item.cost / 100 }}</td>\n                <td>{{ item.price / 100 }}</td>\n              </tr>\n            </ng-container>\n          </table>\n\n          <p>Order cost $: {{ store.selectedOrderCost / 100 }}</p>\n          <p>Order price $: {{ store.selectedOrderPrice / 100 }}</p>\n        </div>\n      </div>\n    </div>\n    <!-- <pre>{{ order | json }}</pre> -->\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *mobxAutorun>\n  <div\n    style=\"overflow-y: auto; max-height: 420px;\"\n    *ngIf=\"store.selectedOrder?.orderItems\"\n  >\n    <div style=\"min-height: 150px;\">\n      <h3>Items</h3>\n      <div\n        *ngFor=\"let item of store.selectedOrder.orderItems\"\n        style=\"padding: 5px;\"\n      >\n        <mat-checkbox\n          style=\"margin-right: 5px;\"\n          disabled\n          [checked]=\"item.selected\"\n        >\n        </mat-checkbox>\n        {{ item.amount }} x {{ item.SKU }},\n        {{ item.name }}\n        <ng-container *ngFor=\"let option of item.options\">\n          ,\n          <mat-icon>{{ option.icon }}</mat-icon>\n          {{ option.text }}\n        </ng-container>\n      </div>\n    </div>\n\n    <div class=\"two-column\">\n      <div>\n        <h3>Shipping</h3>\n        {{ store.selectedOrder.customer.name }}<br />\n        {{ store.selectedOrder.customer.address.street }}<br />\n        {{ store.selectedOrder.customer.address.city }}<br />\n        {{ store.selectedOrder.customer.address.zip }}<br />\n        {{ store.selectedOrder.customer.address.state }}<br />\n        {{ store.selectedOrder.customer.address.country }}<br />\n      </div>\n      <div>\n        <div *ngIf=\"store.selectedOrderSelectedItems.length\">\n          <h3>Production Subtotal</h3>\n          <table>\n            <tr>\n              <th>SKU</th>\n              <th>Amount</th>\n              <th>Cost $</th>\n              <th>Price $</th>\n            </tr>\n            <ng-container *ngFor=\"let item of store.selectedOrderSelectedItems\">\n              <tr>\n                <td>{{ item.SKU }}</td>\n                <td>{{ item.amount }}</td>\n                <td>{{ item.cost / 100 }}</td>\n                <td>{{ item.price / 100 }}</td>\n              </tr>\n            </ng-container>\n          </table>\n\n          <p>Order cost $: {{ store.selectedOrderCost / 100 }}</p>\n          <p>Order price $: {{ store.selectedOrderPrice / 100 }}</p>\n        </div>\n      </div>\n    </div>\n    <!-- <pre>{{ order | json }}</pre> -->\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -84,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"amount\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>\n        Amount\n      </th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"amount\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"name\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"name\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"selected\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Selected</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-checkbox\n          (click)=\"$event.stopPropagation()\"\n          [checked]=\"item.selected\"\n          (change)=\"onCheckboxChange($event, item)\"\n        >\n        </mat-checkbox>\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"option\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product variant</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-form-field>\n          <mat-label>Variant</mat-label>\n          <mat-select [(value)]=\"item.option\">\n            <mat-select-trigger *ngIf=\"item.option\">\n              <mat-icon>{{ item.option.icon }}</mat-icon>\n              {{ item.option.text }}\n            </mat-select-trigger>\n            <mat-option\n              *ngFor=\"let option of item.availableOptions\"\n              [value]=\"option\"\n            >\n              <mat-icon>{{ option.icon }}</mat-icon>\n              {{ option.text }}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[4]\"></mat-paginator>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"amount\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>\n        Amount\n      </th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"amount\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"name\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"name\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>\n      <td mat-cell *matCellDef=\"let item\">\n        {{ getOrderItemCellValue(item, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"selected\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Selected</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-checkbox\n          (click)=\"$event.stopPropagation()\"\n          [checked]=\"item.selected\"\n          (change)=\"onCheckboxChange($event, item)\"\n        >\n        </mat-checkbox>\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"option\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product variant</th>\n      <td mat-cell *matCellDef=\"let item\">\n        <mat-form-field class=\"product-variant-select\">\n          <mat-label>Variant</mat-label>\n          <mat-select [(value)]=\"item.options\" multiple>\n            <mat-select-trigger *ngIf=\"item.options?.length\">\n              <ng-container *ngFor=\"let option of item.options\">\n                <mat-icon>{{ option.icon }}</mat-icon>\n                {{ option.text }}\n              </ng-container>\n            </mat-select-trigger>\n            <mat-option\n              *ngFor=\"let option of item.availableOptions\"\n              [value]=\"option\"\n            >\n              <mat-icon>{{ option.icon }}</mat-icon>\n              {{ option.text }}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[4]\"></mat-paginator>\n</div>\n");
 
 /***/ }),
 
@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-form-field class=\"w100\" appearance=\"outline\">\n    <mat-icon matPrefix>search</mat-icon>\n    <input\n      matInput\n      (keyup)=\"applyFilter($event.target.value)\"\n      placeholder=\"Filter\"\n    />\n  </mat-form-field>\n\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"id\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"customer\">\n      <th mat-header-cell *matHeaderCellDef>Customer</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"customer\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"created\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"created\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"revenue\">\n      <th mat-header-cell *matHeaderCellDef>Revenue $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"revenue\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cost\">\n      <th mat-header-cell *matHeaderCellDef>Cost $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"cost\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"price\">\n      <th mat-header-cell *matHeaderCellDef>Price $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"price\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"fulfillmentStage\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fulfillment</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"fulfillmentStage\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"amountOfProducts\">\n      <th mat-header-cell *matHeaderCellDef>\n        Amount Of Products\n      </th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"amountOfProducts\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef>SKU</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"pageSizeOptions\"></mat-paginator>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-form-field class=\"w100\" appearance=\"outline\">\n    <mat-icon matPrefix>search</mat-icon>\n    <input\n      matInput\n      (keyup)=\"applyFilter($event.target.value)\"\n      placeholder=\"Filter by customer name and order id\"\n    />\n  </mat-form-field>\n\n  <table class=\"w100\" mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"id\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"customerName\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"customerName\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"created\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"created\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"revenue\">\n      <th mat-header-cell *matHeaderCellDef>Revenue $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"revenue\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cost\">\n      <th mat-header-cell *matHeaderCellDef>Cost $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"cost\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"price\">\n      <th mat-header-cell *matHeaderCellDef>Price $</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"price\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"fulfillmentStage\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fulfillment</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"fulfillmentStage\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"amountOfProducts\">\n      <th mat-header-cell *matHeaderCellDef>\n        Amount Of Products\n      </th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"amountOfProducts\") }}\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"SKU\">\n      <th mat-header-cell *matHeaderCellDef>SKU</th>\n      <td mat-cell *matCellDef=\"let order\">\n        {{ getOrderCellValue(order, \"SKU\") }}\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedOrderColumns\"></tr>\n    <tr\n      mat-row\n      *matRowDef=\"let row; columns: displayedOrderColumns\"\n      (click)=\"onRowClick(row)\"\n      class=\"clickable\"\n    ></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"pageSizeOptions\"></mat-paginator>\n</div>\n");
 
 /***/ }),
 
@@ -110,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"toolbar mat-elevation-z8\">\n  <mat-toolbar>\n    <span> Orders </span>\n    <span class=\"spacer\"> </span>\n    <button mat-raised-button color=\"primary\" (click)=\"openImportDialog()\">\n      Import orders\n    </button>\n    <button mat-raised-button>NA1</button>\n    <button mat-raised-button>NA2</button>\n  </mat-toolbar>\n</div>\n\n<div class=\"mat-elevation-z8\" style=\"padding: 16px 16px 0;\">\n  <app-orders-table\n    [displayedOrderColumns]=\"displayedOrderColumns\"\n    [orders]=\"store.mainOrders\"\n    [pageSizeOptions]=\"[10, 30, 100]\"\n    (rowClick)=\"onRowClick($event)\"\n  ></app-orders-table>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"toolbar mat-elevation-z8\">\n  <mat-toolbar>\n    <span> Orders </span>\n    <span class=\"spacer\"> </span>\n    <button mat-raised-button color=\"primary\" (click)=\"openImportDialog()\">\n      Import orders\n    </button>\n    <button mat-raised-button>NA1</button>\n    <button mat-raised-button>NA2</button>\n  </mat-toolbar>\n</div>\n\n<div\n  class=\"mat-elevation-z8\"\n  style=\"padding: 16px 16px 0;\"\n  *ngIf=\"store.mainOrders.length\"\n>\n  <app-orders-table\n    [displayedOrderColumns]=\"displayedOrderColumns\"\n    [orders]=\"store.mainOrders\"\n    [pageSizeOptions]=\"[10, 30, 100]\"\n    (rowClick)=\"onRowClick($event)\"\n  ></app-orders-table>\n</div>\n");
 
 /***/ }),
 
@@ -368,12 +368,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_spinner_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/spinner.service */ "./src/app/services/spinner.service.ts");
+
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(spinner) {
+        this.spinner = spinner;
+        this.isBusy = true;
         this.title = 'import-orders';
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.spinner.isLoading.subscribe(function (busy) {
+            if (busy === 0) {
+                setTimeout(function () { return _this.isBusy = false; });
+            }
+            else if (busy === 1) {
+                setTimeout(function () {
+                    if (_this.spinner.isLoading.value > 0) {
+                        _this.isBusy = true;
+                    }
+                    else {
+                        _this.isBusy = false;
+                    }
+                }, 200);
+            }
+        });
+    };
+    AppComponent.ctorParameters = function () { return [
+        { type: _services_spinner_service__WEBPACK_IMPORTED_MODULE_2__["SpinnerService"] }
+    ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
@@ -404,25 +429,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var mobx_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! mobx-angular */ "./node_modules/mobx-angular/dist/mobx-angular.js");
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
-/* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/checkbox */ "./node_modules/@angular/material/esm5/checkbox.es5.js");
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
-/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm5/paginator.es5.js");
-/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm5/select.es5.js");
-/* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/sort */ "./node_modules/@angular/material/esm5/sort.es5.js");
-/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm5/stepper.es5.js");
-/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
-/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
-/* harmony import */ var _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/orders/orders.component */ "./src/app/components/orders/orders.component.ts");
-/* harmony import */ var _store_order_store_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./store/order-store.service */ "./src/app/store/order-store.service.ts");
-/* harmony import */ var _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/import-orders-dialog/import-orders-dialog.component */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.ts");
-/* harmony import */ var _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/orders-table/orders-table.component */ "./src/app/components/orders-table/orders-table.component.ts");
-/* harmony import */ var _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/order-items-table/order-items-table.component */ "./src/app/components/order-items-table/order-items-table.component.ts");
-/* harmony import */ var _components_order_details_order_details_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/order-details/order-details.component */ "./src/app/components/order-details/order-details.component.ts");
-/* harmony import */ var _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/order-details-dialog/order-details-dialog.component */ "./src/app/components/order-details-dialog/order-details-dialog.component.ts");
+/* harmony import */ var angular_in_memory_web_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-in-memory-web-api */ "./node_modules/angular-in-memory-web-api/index.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/checkbox */ "./node_modules/@angular/material/esm5/checkbox.es5.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
+/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm5/paginator.es5.js");
+/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm5/progress-spinner.es5.js");
+/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm5/select.es5.js");
+/* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/sort */ "./node_modules/@angular/material/esm5/sort.es5.js");
+/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm5/stepper.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
+/* harmony import */ var _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/orders/orders.component */ "./src/app/components/orders/orders.component.ts");
+/* harmony import */ var _store_order_store_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./store/order-store.service */ "./src/app/store/order-store.service.ts");
+/* harmony import */ var _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/import-orders-dialog/import-orders-dialog.component */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.ts");
+/* harmony import */ var _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/orders-table/orders-table.component */ "./src/app/components/orders-table/orders-table.component.ts");
+/* harmony import */ var _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/order-items-table/order-items-table.component */ "./src/app/components/order-items-table/order-items-table.component.ts");
+/* harmony import */ var _components_order_details_order_details_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/order-details/order-details.component */ "./src/app/components/order-details/order-details.component.ts");
+/* harmony import */ var _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/order-details-dialog/order-details-dialog.component */ "./src/app/components/order-details-dialog/order-details-dialog.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services_in_memory_data_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./services/in-memory-data.service */ "./src/app/services/in-memory-data.service.ts");
+/* harmony import */ var _services_spinner_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./services/spinner.service */ "./src/app/services/spinner.service.ts");
+/* harmony import */ var _interceptors_loader_interceptor__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./interceptors/loader.interceptor */ "./src/app/interceptors/loader.interceptor.ts");
+/* harmony import */ var _services_order_api_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/order-api.service */ "./src/app/services/order-api.service.ts");
+
+
+
+
+
+
+
 
 
 
@@ -455,37 +494,43 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_18__["OrdersComponent"],
-                _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_20__["ImportOrdersDialogComponent"],
-                _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_21__["OrdersTableComponent"],
-                _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_22__["OrderItemsTableComponent"],
-                _components_order_details_order_details_component__WEBPACK_IMPORTED_MODULE_23__["OrderDetailsComponent"],
-                _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_24__["OrderDetailsDialogComponent"]
+                _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_20__["OrdersComponent"],
+                _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_22__["ImportOrdersDialogComponent"],
+                _components_orders_table_orders_table_component__WEBPACK_IMPORTED_MODULE_23__["OrdersTableComponent"],
+                _components_order_items_table_order_items_table_component__WEBPACK_IMPORTED_MODULE_24__["OrderItemsTableComponent"],
+                _components_order_details_order_details_component__WEBPACK_IMPORTED_MODULE_25__["OrderDetailsComponent"],
+                _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_26__["OrderDetailsDialogComponent"]
             ],
             entryComponents: [
-                _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_20__["ImportOrdersDialogComponent"],
-                _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_24__["OrderDetailsDialogComponent"]
+                _components_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_22__["ImportOrdersDialogComponent"],
+                _components_order_details_dialog_order_details_dialog_component__WEBPACK_IMPORTED_MODULE_26__["OrderDetailsDialogComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
                 mobx_angular__WEBPACK_IMPORTED_MODULE_5__["MobxAngularModule"],
-                _angular_material_button__WEBPACK_IMPORTED_MODULE_6__["MatButtonModule"],
-                _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"],
-                _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MatDialogModule"],
-                _angular_material_form_field__WEBPACK_IMPORTED_MODULE_9__["MatFormFieldModule"],
-                _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIconModule"],
-                _angular_material_input__WEBPACK_IMPORTED_MODULE_11__["MatInputModule"],
-                _angular_material_paginator__WEBPACK_IMPORTED_MODULE_12__["MatPaginatorModule"],
-                _angular_material_select__WEBPACK_IMPORTED_MODULE_13__["MatSelectModule"],
-                _angular_material_sort__WEBPACK_IMPORTED_MODULE_14__["MatSortModule"],
-                _angular_material_stepper__WEBPACK_IMPORTED_MODULE_15__["MatStepperModule"],
-                _angular_material_table__WEBPACK_IMPORTED_MODULE_16__["MatTableModule"],
-                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_17__["MatToolbarModule"],
+                _angular_material_button__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"],
+                _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_8__["MatCheckboxModule"],
+                _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"],
+                _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__["MatFormFieldModule"],
+                _angular_material_icon__WEBPACK_IMPORTED_MODULE_11__["MatIconModule"],
+                _angular_material_input__WEBPACK_IMPORTED_MODULE_12__["MatInputModule"],
+                _angular_material_paginator__WEBPACK_IMPORTED_MODULE_13__["MatPaginatorModule"],
+                _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_14__["MatProgressSpinnerModule"],
+                _angular_material_select__WEBPACK_IMPORTED_MODULE_15__["MatSelectModule"],
+                _angular_material_sort__WEBPACK_IMPORTED_MODULE_16__["MatSortModule"],
+                _angular_material_stepper__WEBPACK_IMPORTED_MODULE_17__["MatStepperModule"],
+                _angular_material_table__WEBPACK_IMPORTED_MODULE_18__["MatTableModule"],
+                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_27__["HttpClientModule"],
+                angular_in_memory_web_api__WEBPACK_IMPORTED_MODULE_6__["HttpClientInMemoryWebApiModule"].forRoot(_services_in_memory_data_service__WEBPACK_IMPORTED_MODULE_28__["InMemoryDataService"], { dataEncapsulation: false, delay: 1500 })
             ],
             providers: [
-                _store_order_store_service__WEBPACK_IMPORTED_MODULE_19__["OrderStoreService"],
-                { provide: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MAT_DIALOG_DEFAULT_OPTIONS"], useValue: { hasBackdrop: true, maxWidth: 850, minWidth: '850px' } }
+                { provide: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__["MAT_DIALOG_DEFAULT_OPTIONS"], useValue: { hasBackdrop: true, maxWidth: '850px', minWidth: '850px' } },
+                _services_spinner_service__WEBPACK_IMPORTED_MODULE_29__["SpinnerService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_27__["HTTP_INTERCEPTORS"], useClass: _interceptors_loader_interceptor__WEBPACK_IMPORTED_MODULE_30__["LoaderInterceptor"], multi: true },
+                _services_order_api_service__WEBPACK_IMPORTED_MODULE_31__["OrderApiService"],
+                _store_order_store_service__WEBPACK_IMPORTED_MODULE_21__["OrderStoreService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -531,11 +576,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ImportOrdersDialogComponent = /** @class */ (function () {
-    function ImportOrdersDialogComponent(store, dialogRef, data) {
+    function ImportOrdersDialogComponent(store, dialogRef) {
         this.store = store;
         this.dialogRef = dialogRef;
-        this.data = data;
-        this.displayedOrderColumns = ['id', 'customer', 'amountOfProducts', 'price', 'SKU'];
+        this.displayedOrderColumns = ['id', 'customerName', 'amountOfProducts', 'price', 'SKU'];
     }
     ImportOrdersDialogComponent.prototype.onOrderRowClick = function (order) {
         this.store.setSelectedOrder(order);
@@ -547,11 +591,10 @@ var ImportOrdersDialogComponent = /** @class */ (function () {
     };
     ImportOrdersDialogComponent.ctorParameters = function () { return [
         { type: src_app_store_order_store_service__WEBPACK_IMPORTED_MODULE_2__["OrderStoreService"] },
-        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"],] }] }
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material_stepper__WEBPACK_IMPORTED_MODULE_4__["MatStepper"], { static: true })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material_stepper__WEBPACK_IMPORTED_MODULE_4__["MatStepper"], { static: false })
     ], ImportOrdersDialogComponent.prototype, "stepper", void 0);
     ImportOrdersDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -559,8 +602,7 @@ var ImportOrdersDialogComponent = /** @class */ (function () {
             template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./import-orders-dialog.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/import-orders-dialog/import-orders-dialog.component.html")).default,
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./import-orders-dialog.component.scss */ "./src/app/components/import-orders-dialog/import-orders-dialog.component.scss")).default]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]))
+        })
     ], ImportOrdersDialogComponent);
     return ImportOrdersDialogComponent;
 }());
@@ -820,10 +862,8 @@ var OrdersTableComponent = /** @class */ (function () {
         var SKUs;
         var dateOptions = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
         switch (cell) {
-            case 'customer':
-                return order.customer.name;
             case 'created':
-                return order[cell].toLocaleDateString('en-US', dateOptions);
+                return new Date(order[cell]).toLocaleDateString('en-US', dateOptions);
             case 'amountOfProducts':
                 sum = 0;
                 order.orderItems.forEach(function (i) { return sum += i.amount; });
@@ -832,7 +872,8 @@ var OrdersTableComponent = /** @class */ (function () {
             case 'cost':
             case 'price':
                 sum = 0;
-                order.orderItems.forEach(function (i) { return sum += i[cell] * i.amount; });
+                var items = order.orderItems.filter(function (i) { return i.selected; });
+                items.forEach(function (i) { return sum += i[cell] * i.amount; });
                 return this.currencyToString(this.addPlus(sum));
             case 'SKU':
                 SKUs = [];
@@ -937,19 +978,21 @@ var OrdersComponent = /** @class */ (function () {
     function OrdersComponent(dialog, store) {
         this.dialog = dialog;
         this.store = store;
-        this.displayedOrderColumns = ['id', 'customer', 'created', 'revenue', 'cost', 'price', 'fulfillmentStage'];
+        this.displayedOrderColumns = ['id', 'customerName', 'created', 'revenue', 'cost', 'price', 'fulfillmentStage'];
     }
+    OrdersComponent.prototype.ngOnInit = function () {
+        this.store.initMainOrders();
+    };
     OrdersComponent.prototype.openImportDialog = function () {
         var _this = this;
-        var dialogRef = this.dialog.open(_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_4__["ImportOrdersDialogComponent"], {
-            width: '250px',
-            data: { importedOrder: this.importedOrder }
-        });
+        this.store.initImportableOrders();
+        var dialogRef = this.dialog.open(_import_orders_dialog_import_orders_dialog_component__WEBPACK_IMPORTED_MODULE_4__["ImportOrdersDialogComponent"]);
         dialogRef.afterClosed().subscribe(function (order) {
-            _this.importedOrder = order;
+            _this.store.setSelectedOrder(order);
             if (order) {
-                _this.store.addImportedToMainOrders(order);
-                _this.store.deleteFromExternalOrders(order);
+                _this.store.importSelectedOrder().subscribe(function () {
+                    _this.store.setSelectedOrder(undefined);
+                });
             }
         });
     };
@@ -979,11 +1022,86 @@ var OrdersComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/store/order-store.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/store/order-store.service.ts ***!
-  \**********************************************/
-/*! exports provided: pickRandomly, randomArray, randomAddress, randomCustomer, randomProductOption, randomOrderItem, randomDate, randomOrder, OrderStoreService */
+/***/ "./src/app/interceptors/loader.interceptor.ts":
+/*!****************************************************!*\
+  !*** ./src/app/interceptors/loader.interceptor.ts ***!
+  \****************************************************/
+/*! exports provided: LoaderInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderInterceptor", function() { return LoaderInterceptor; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _services_spinner_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/spinner.service */ "./src/app/services/spinner.service.ts");
+
+
+
+
+
+var LoaderInterceptor = /** @class */ (function () {
+    function LoaderInterceptor(loaderService) {
+        this.loaderService = loaderService;
+        this.requests = [];
+    }
+    LoaderInterceptor.prototype.removeRequest = function (req) {
+        var i = this.requests.indexOf(req);
+        if (i >= 0) {
+            this.requests.splice(i, 1);
+        }
+        if (this.requests.length) {
+            this.loaderService.isLoading.next(1);
+        }
+        else {
+            this.loaderService.isLoading.next(0);
+        }
+    };
+    LoaderInterceptor.prototype.intercept = function (req, next) {
+        var _this = this;
+        this.requests.push(req);
+        this.loaderService.isLoading.next(1);
+        return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
+            var subscription = next.handle(req)
+                .subscribe(function (event) {
+                if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpResponse"]) {
+                    _this.removeRequest(req);
+                    observer.next(event);
+                }
+            }, function (err) {
+                _this.removeRequest(req);
+                observer.error(err);
+            }, function () {
+                _this.removeRequest(req);
+                observer.complete();
+            });
+            // remove request from queue when cancelled
+            return function () {
+                _this.removeRequest(req);
+                subscription.unsubscribe();
+            };
+        });
+    };
+    LoaderInterceptor.ctorParameters = function () { return [
+        { type: _services_spinner_service__WEBPACK_IMPORTED_MODULE_4__["SpinnerService"] }
+    ]; };
+    LoaderInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], LoaderInterceptor);
+    return LoaderInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/in-memory-data.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/services/in-memory-data.service.ts ***!
+  \****************************************************/
+/*! exports provided: pickRandomly, randomArray, randomAddress, randomCustomer, randomProductOption, randomOrderItem, randomDate, randomOrder, InMemoryDataService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -996,11 +1114,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomOrderItem", function() { return randomOrderItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomDate", function() { return randomDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randomOrder", function() { return randomOrder; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderStoreService", function() { return OrderStoreService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InMemoryDataService", function() { return InMemoryDataService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var mobx_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mobx-angular */ "./node_modules/mobx-angular/dist/mobx-angular.js");
-
 
 
 function pickRandomly(arr) {
@@ -1015,8 +1131,23 @@ function pickRandomly(arr) {
 function randomArray(approxLength, getItem) {
     var length = Math.round(approxLength / 2 + Math.random() * approxLength);
     var array = [];
+    var _loop_1 = function (i) {
+        var item = getItem();
+        if (item.id) {
+            var foundIndex = array.findIndex(function (e) { return e.id === item.id; });
+            if (foundIndex >= 0) {
+                array[foundIndex] = item;
+            }
+            else {
+                array.push(item);
+            }
+        }
+        else {
+            array.push(item);
+        }
+    };
     for (var i = 0; i < length; i++) {
-        array.push(getItem());
+        _loop_1(i);
     }
     return array;
 }
@@ -1070,24 +1201,190 @@ function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 function randomOrder() {
+    var customer = randomCustomer();
     var order = {
-        id: '#' + String(Math.floor(Math.random() * 1000000)),
+        id: String(Math.floor(Math.random() * 999999)).padStart(6, '0'),
         created: randomDate(new Date('2019-01-01'), new Date('2020-01-01')),
-        customer: randomCustomer(),
+        customer: customer,
+        customerName: customer.name,
         fulfillmentStage: pickRandomly(['In production', 'Quality Control']),
-        orderItems: randomArray(3, randomOrderItem)
+        orderItems: randomArray(2, randomOrderItem)
     };
     return order;
 }
+var InMemoryDataService = /** @class */ (function () {
+    function InMemoryDataService() {
+    }
+    InMemoryDataService.prototype.createDb = function () {
+        var mainOrders = randomArray(4, randomOrder);
+        var importableOrders = randomArray(5000, randomOrder);
+        importableOrders.forEach(function (o) { return o.fulfillmentStage = 'Incoming'; });
+        return { mainOrders: mainOrders, importableOrders: importableOrders };
+    };
+    /**
+     * Apply query/search parameters as a filter over the collection
+     * This impl only supports RegExp queries on string properties of the collection
+     * ANDs the conditions together
+     */
+    InMemoryDataService.prototype.applyQuery = function (collection, query) {
+        // extract filtering conditions - {propertyName, RegExps) - from query/search parameters
+        var conditions = [];
+        var caseSensitive = 'i'; // this.config.caseSensitiveSearch ? undefined : 'i';
+        query.forEach(function (value, name) {
+            value.forEach(function (v) { return conditions.push({ name: name, rx: new RegExp(decodeURI(v), caseSensitive) }); });
+        });
+        var len = conditions.length;
+        if (!len) {
+            return collection;
+        }
+        // AND the RegExp conditions
+        return collection.filter(function (row) {
+            var ok = true;
+            var i = len;
+            while (ok && i) {
+                i -= 1;
+                var cond = conditions[i];
+                ok = cond.rx.test(row[cond.name]);
+            }
+            return ok;
+        });
+    };
+    InMemoryDataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], InMemoryDataService);
+    return InMemoryDataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/order-api.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/services/order-api.service.ts ***!
+  \***********************************************/
+/*! exports provided: OrderApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderApiService", function() { return OrderApiService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+
+var cudOptions = { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' }) };
+var OrderApiService = /** @class */ (function () {
+    function OrderApiService(http) {
+        this.http = http;
+        this.apiUrlMainOrders = 'api/mainOrders';
+        this.apiUrlImportableOrders = 'api/importableOrders';
+    }
+    OrderApiService.prototype.getMainOrders = function () {
+        return this.http.get(this.apiUrlMainOrders)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    OrderApiService.prototype.getImportableOrders = function () {
+        return this.http.get(this.apiUrlImportableOrders)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    OrderApiService.prototype.deleteImportableOrder = function (order) {
+        var url = this.apiUrlImportableOrders + "/" + order.id;
+        return this.http.delete(url, cudOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    OrderApiService.prototype.postToMainOrders = function (order) {
+        return this.http.post(this.apiUrlMainOrders, order, cudOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    // In a real world app, we might send the error to remote logging infrastructure
+    OrderApiService.prototype.handleError = function (error) {
+        console.error(error);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+    };
+    OrderApiService.ctorParameters = function () { return [
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+    ]; };
+    OrderApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], OrderApiService);
+    return OrderApiService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/spinner.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/services/spinner.service.ts ***!
+  \*********************************************/
+/*! exports provided: SpinnerService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpinnerService", function() { return SpinnerService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+var SpinnerService = /** @class */ (function () {
+    function SpinnerService() {
+        this.isLoading = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](0);
+    }
+    SpinnerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], SpinnerService);
+    return SpinnerService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/store/order-store.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/store/order-store.service.ts ***!
+  \**********************************************/
+/*! exports provided: OrderStoreService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderStoreService", function() { return OrderStoreService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var mobx_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mobx-angular */ "./node_modules/mobx-angular/dist/mobx-angular.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services_order_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/order-api.service */ "./src/app/services/order-api.service.ts");
+
+
+
+
+
 var OrderStoreService = /** @class */ (function () {
-    function OrderStoreService() {
-        // TODO remove
-        // console.log('store init');
-        this.mainOrders = randomArray(4, randomOrder);
-        this.externalOrders = randomArray(20, randomOrder);
-        this.externalOrders.forEach(function (o) { return o.fulfillmentStage = 'Incoming'; });
+    function OrderStoreService(orderApi) {
+        this.orderApi = orderApi;
+        this.mainOrders = [];
+        this.importableOrders = [];
     }
     Object.defineProperty(OrderStoreService.prototype, "selectedOrderSelectedItems", {
+        // Computed
         get: function () {
             if (this.selectedOrder) {
                 return this.selectedOrder.orderItems.filter(function (i) { return i.selected; });
@@ -1117,25 +1414,47 @@ var OrderStoreService = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // Actions
     OrderStoreService.prototype.setSelectedOrder = function (order) {
         this.selectedOrder = order;
     };
-    OrderStoreService.prototype.deleteFromExternalOrders = function (order) {
-        this.externalOrders = this.externalOrders.filter(function (o) { return o.id !== order.id; });
+    // The app might benefit from unidirectional data flow from API to store in case if data amount is not too large
+    OrderStoreService.prototype.initMainOrders = function () {
+        var _this = this;
+        this.orderApi.getMainOrders().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (orders) { return _this.mainOrders = orders; })).subscribe();
+    };
+    OrderStoreService.prototype.initImportableOrders = function () {
+        var _this = this;
+        this.orderApi.getImportableOrders().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (orders) { return _this.importableOrders = orders; })).subscribe();
+    };
+    OrderStoreService.prototype.deleteFromImportableOrders = function (order) {
+        var _this = this;
+        return this.orderApi.deleteImportableOrder(order).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function () { return _this.importableOrders = _this.importableOrders.filter(function (o) { return o.id !== order.id; }); }));
     };
     OrderStoreService.prototype.addToMainOrders = function (order) {
-        this.mainOrders = tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](this.mainOrders, [order]);
+        var _this = this;
+        return this.orderApi.postToMainOrders(order)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function () { return _this.mainOrders = tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](_this.mainOrders, [order]); }));
     };
-    OrderStoreService.prototype.addImportedToMainOrders = function (order) {
-        order.fulfillmentStage = 'Imported';
-        this.addToMainOrders(order);
+    OrderStoreService.prototype.importSelectedOrder = function () {
+        var _this = this;
+        if (this.selectedOrderSelectedItems.length) {
+            this.selectedOrder.fulfillmentStage = 'Imported';
+        }
+        else {
+            this.selectedOrder.fulfillmentStage = 'Cancelled';
+        }
+        return this.addToMainOrders(this.selectedOrder).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["flatMap"])(function () { return _this.deleteFromImportableOrders(_this.selectedOrder); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function () { return _this.initMainOrders(); }));
     };
+    OrderStoreService.ctorParameters = function () { return [
+        { type: _services_order_api_service__WEBPACK_IMPORTED_MODULE_4__["OrderApiService"] }
+    ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         mobx_angular__WEBPACK_IMPORTED_MODULE_2__["observable"]
     ], OrderStoreService.prototype, "mainOrders", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         mobx_angular__WEBPACK_IMPORTED_MODULE_2__["observable"]
-    ], OrderStoreService.prototype, "externalOrders", void 0);
+    ], OrderStoreService.prototype, "importableOrders", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         mobx_angular__WEBPACK_IMPORTED_MODULE_2__["observable"]
     ], OrderStoreService.prototype, "selectedOrder", void 0);
@@ -1153,13 +1472,19 @@ var OrderStoreService = /** @class */ (function () {
     ], OrderStoreService.prototype, "setSelectedOrder", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
-    ], OrderStoreService.prototype, "deleteFromExternalOrders", null);
+    ], OrderStoreService.prototype, "initMainOrders", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
+    ], OrderStoreService.prototype, "initImportableOrders", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
+    ], OrderStoreService.prototype, "deleteFromImportableOrders", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
     ], OrderStoreService.prototype, "addToMainOrders", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         mobx_angular__WEBPACK_IMPORTED_MODULE_2__["action"]
-    ], OrderStoreService.prototype, "addImportedToMainOrders", null);
+    ], OrderStoreService.prototype, "importSelectedOrder", null);
     OrderStoreService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
